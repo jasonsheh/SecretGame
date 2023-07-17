@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://cpo1prqyec8q6"]
+
+[ext_resource type="PackedScene" uid="uid://b6xbyc8gujjhk" path="res://Character/character.tscn" id="1_sk5v3"]
+[ext_resource type="Script" path="res://Character/NPC/NPC.gd" id="2_nq015"]
+
+[node name="NPC" instance=ExtResource("1_sk5v3")]
+script = ExtResource("2_nq015")
+
+[node name="PlayerDetection" type="Area2D" parent="." index="4"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetection" index="0"]
+
+[connection signal="body_entered" from="PlayerDetection" to="." method="_on_player_detection_body_entered"]

@@ -1,0 +1,49 @@
+[gd_scene load_steps=6 format=3 uid="uid://duiyhsyq6b22r"]
+
+[ext_resource type="PackedScene" uid="uid://cgr35j5xi6h4t" path="res://Item/Weapon/Weapon.tscn" id="1_8uua3"]
+[ext_resource type="Script" path="res://Item/Weapon/Pistol.gd" id="2_4wlgp"]
+[ext_resource type="Texture2D" uid="uid://bhxiwm47fpyf6" path="res://Material/pistol.png" id="2_a8dq8"]
+
+[sub_resource type="Animation" id="Animation_pf3w5"]
+resource_name = "attack"
+length = 0.5
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [0],
+"method": &"shoot"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2kuvf"]
+_data = {
+"attack": SubResource("Animation_pf3w5")
+}
+
+[node name="Pistol" instance=ExtResource("1_8uua3")]
+script = ExtResource("2_4wlgp")
+is_ranged = true
+
+[node name="Sprite2D" parent="." index="0"]
+rotation = 0.0
+texture = ExtResource("2_a8dq8")
+offset = Vector2(10, 0)
+
+[node name="CollisionShape2D" parent="Sprite2D/Hitbox" index="0"]
+position = Vector2(29.3938, -16.9707)
+shape = null
+
+[node name="AnimationPlayer" parent="." index="1"]
+libraries = {
+"": SubResource("AnimationLibrary_2kuvf")
+}
+
+[node name="CollisionShape2D" parent="PlayerDetector" index="0"]
+position = Vector2(8, 0)

@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://bgbcoc7mp1wer"]
+
+[ext_resource type="PackedScene" uid="uid://rlqh4bgjud0q" path="res://Levels/LevelBase.tscn" id="1_27qfp"]
+
+[node name="Level2" instance=ExtResource("1_27qfp")]
+
+[node name="UI" parent="." index="0"]
+visible = false
+
+[node name="CanvasLayer" parent="." index="1"]
+visible = false

@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://cmil52h06ak81"]
+
+[ext_resource type="PackedScene" uid="uid://damah84yfg1x7" path="res://Item/Projectile/Projectile.tscn" id="1_hr70p"]
+[ext_resource type="Texture2D" uid="uid://cw3x5mncm5w7n" path="res://Material/bullet.png" id="2_yxpp5"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j74mm"]
+atlas = ExtResource("2_yxpp5")
+region = Rect2(20, 28, 28, 28)
+
+[node name="BulletSimple" instance=ExtResource("1_hr70p")]
+collision_mask = 0
+
+[node name="Sprite2D" parent="." index="1"]
+position = Vector2(0, -9.53674e-07)
+scale = Vector2(0.25, 0.178571)
+texture = SubResource("AtlasTexture_j74mm")

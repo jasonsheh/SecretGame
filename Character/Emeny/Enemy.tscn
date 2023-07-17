@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://ds4mhlpdeio15"]
+
+[ext_resource type="PackedScene" uid="uid://b6xbyc8gujjhk" path="res://Character/character.tscn" id="1_bvilu"]
+[ext_resource type="Script" path="res://Character/Emeny/Enemy.gd" id="2_oqgha"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dxhc3"]
+radius = 164.073
+
+[node name="Enemy" instance=ExtResource("1_bvilu")]
+collision_layer = 4
+script = ExtResource("2_oqgha")
+
+[node name="PlayerDetection" type="Area2D" parent="." index="4"]
+collision_layer = 4
+collision_mask = 7
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetection" index="0"]
+shape = SubResource("CircleShape2D_dxhc3")
+
+[connection signal="body_entered" from="PlayerDetection" to="." method="_on_player_detection_body_entered"]
+[connection signal="body_exited" from="PlayerDetection" to="." method="_on_player_detection_body_exited"]

@@ -1,0 +1,81 @@
+[gd_scene load_steps=9 format=3 uid="uid://rlqh4bgjud0q"]
+
+[ext_resource type="Script" path="res://Levels/LevelBase.gd" id="1_fshsy"]
+[ext_resource type="Script" path="res://UI/UI.gd" id="2_abr1o"]
+[ext_resource type="Texture2D" uid="uid://qb7q1d5bhdbq" path="res://UI/bg.png" id="3_58vhu"]
+[ext_resource type="Texture2D" uid="uid://dcqc743qg7jai" path="res://UI/red.png" id="4_g77ni"]
+[ext_resource type="Texture2D" uid="uid://bobmt1a3dcjtu" path="res://UI/green.png" id="5_qf58l"]
+[ext_resource type="PackedScene" uid="uid://dunrj47lgc46m" path="res://UI/pause_menu.tscn" id="6_bor5c"]
+[ext_resource type="PackedScene" uid="uid://diq0qkwvmmy2q" path="res://Character/Player/player.tscn" id="7_ddu74"]
+[ext_resource type="TileSet" uid="uid://bj5ynpoaf8qp7" path="res://new_tile_set.tres" id="8_63byq"]
+
+[node name="LevelBase" type="Node2D"]
+script = ExtResource("1_fshsy")
+
+[node name="UI" type="CanvasLayer" parent="."]
+script = ExtResource("2_abr1o")
+
+[node name="HealthBar" type="TextureProgressBar" parent="UI"]
+offset_left = 12.0
+offset_top = 12.0
+offset_right = 83.0
+offset_bottom = 22.0
+nine_patch_stretch = true
+texture_over = ExtResource("3_58vhu")
+texture_progress = ExtResource("4_g77ni")
+
+[node name="EnergyBar" type="TextureProgressBar" parent="UI"]
+offset_left = 12.0
+offset_top = 18.0
+offset_right = 74.0
+offset_bottom = 28.0
+nine_patch_stretch = true
+texture_over = ExtResource("3_58vhu")
+texture_progress = ExtResource("5_qf58l")
+
+[node name="PanelContainer" type="PanelContainer" parent="UI"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -60.0
+offset_right = 20.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Inventory" type="HBoxContainer" parent="UI/PanelContainer"]
+layout_mode = 2
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="PauseMenu" parent="CanvasLayer" node_paths=PackedStringArray("game_scene") instance=ExtResource("6_bor5c")]
+anchors_preset = -1
+anchor_bottom = 1.022
+offset_top = 8.0
+offset_bottom = 0.0799866
+game_scene = NodePath("../..")
+
+[node name="Player" parent="." instance=ExtResource("7_ddu74")]
+position = Vector2(0, -227)
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+position = Vector2(0, 43)
+
+[node name="GameBG" type="Sprite2D" parent="Player/Camera2D"]
+z_index = -2
+position = Vector2(0, 5)
+scale = Vector2(2.12625, 1.23906)
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource("8_63byq")
+format = 2
+
+[connection signal="hp_changed" from="Player" to="UI" method="_on_player_hp_changed"]
+[connection signal="weapon_droped" from="Player" to="UI" method="_on_player_weapon_droped"]
+[connection signal="weapon_picked_up" from="Player" to="UI" method="_on_player_weapon_picked_up"]
+[connection signal="weapon_switched" from="Player" to="UI" method="_on_player_weapon_switched"]
