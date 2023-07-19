@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://dcqc743qg7jai" path="res://UI/red.png" id="4_g77ni"]
 [ext_resource type="Texture2D" uid="uid://bobmt1a3dcjtu" path="res://UI/green.png" id="5_qf58l"]
 [ext_resource type="PackedScene" uid="uid://dunrj47lgc46m" path="res://UI/pause_menu.tscn" id="6_bor5c"]
-[ext_resource type="PackedScene" uid="uid://diq0qkwvmmy2q" path="res://Character/Player/player.tscn" id="7_ddu74"]
+[ext_resource type="PackedScene" uid="uid://diq0qkwvmmy2q" path="res://Character/Player/Player.tscn" id="7_ddu74"]
 [ext_resource type="TileSet" uid="uid://bj5ynpoaf8qp7" path="res://new_tile_set.tres" id="8_63byq"]
 
 [node name="LevelBase" type="Node2D"]

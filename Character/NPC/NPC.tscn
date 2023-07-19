@@ -1,13 +1,40 @@
-[gd_scene load_steps=3 format=3 uid="uid://cpo1prqyec8q6"]
+[gd_scene load_steps=4 format=3 uid="uid://cpo1prqyec8q6"]
 
 [ext_resource type="PackedScene" uid="uid://b6xbyc8gujjhk" path="res://Character/character.tscn" id="1_sk5v3"]
 [ext_resource type="Script" path="res://Character/NPC/NPC.gd" id="2_nq015"]
+[ext_resource type="Script" path="res://Character/NPC/NPCFSM.gd" id="3_383u8"]
 
 [node name="NPC" instance=ExtResource("1_sk5v3")]
 script = ExtResource("2_nq015")
+
+[node name="FiniteStateMachine" parent="." index="3"]
+script = ExtResource("3_383u8")
 
 [node name="PlayerDetection" type="Area2D" parent="." index="4"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetection" index="0"]
 
+[node name="Interactive" type="Label" parent="." index="5"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -8.0
+offset_top = 60.0
+offset_right = 12.0
+offset_bottom = 86.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "[E]"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Dialog" type="Label" parent="." index="6"]
+offset_left = -136.0
+offset_top = -40.0
+offset_right = -24.0
+offset_bottom = -14.0
+
 [connection signal="body_entered" from="PlayerDetection" to="." method="_on_player_detection_body_entered"]
+[connection signal="body_exited" from="PlayerDetection" to="." method="_on_player_detection_body_exited"]

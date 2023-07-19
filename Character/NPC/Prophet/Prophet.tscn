@@ -2,9 +2,9 @@
 
 [ext_resource type="PackedScene" uid="uid://cpo1prqyec8q6" path="res://Character/NPC/NPC.tscn" id="1_52saq"]
 [ext_resource type="Texture2D" uid="uid://bm1vdo1lrn83g" path="res://Character/NPC/Prophet/idle/idle-00.png" id="2_78dn0"]
+[ext_resource type="Script" path="res://Character/NPC/Prophet/Prophet.gd" id="2_v0enp"]
 [ext_resource type="Texture2D" uid="uid://dknm03rcxx6hy" path="res://Character/NPC/Prophet/idle/idle-01.png" id="3_fkcxg"]
 [ext_resource type="Texture2D" uid="uid://4detk661gto6" path="res://Character/NPC/Prophet/idle/idle-02.png" id="4_t61oc"]
-[ext_resource type="Script" path="res://Character/NPC/Prophet/ProphetFSM.gd" id="5_5lpwr"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_8fk4g"]
 animations = [{
@@ -81,6 +81,7 @@ size = Vector2(64.5, 76)
 
 [node name="Prophet" instance=ExtResource("1_52saq")]
 collision_mask = 1
+script = ExtResource("2_v0enp")
 
 [node name="AnimatedSprite2D" parent="." index="0"]
 sprite_frames = SubResource("SpriteFrames_8fk4g")
@@ -95,12 +96,21 @@ libraries = {
 "": SubResource("AnimationLibrary_7kesc")
 }
 
-[node name="FiniteStateMachine" parent="." index="3"]
-script = ExtResource("5_5lpwr")
-
 [node name="PlayerDetection" parent="." index="4"]
 collision_layer = 16
-collision_mask = 3
+collision_mask = 2
 
 [node name="CollisionShape2D" parent="PlayerDetection" index="0"]
 shape = SubResource("RectangleShape2D_aiivb")
+
+[node name="Interactive" parent="." index="5"]
+offset_left = -10.0
+offset_top = 32.0
+offset_right = 10.0
+offset_bottom = 58.0
+
+[node name="Dialog" parent="." index="6"]
+offset_left = -114.0
+offset_top = -65.0
+offset_right = -2.0
+offset_bottom = -39.0

@@ -1,0 +1,203 @@
+[gd_scene load_steps=2 format=3 uid="uid://cg0t4c3b7afwj"]
+
+[ext_resource type="Script" path="res://OptionScene.gd" id="1_nnx6r"]
+
+[node name="OptionScene" type="Node2D"]
+script = ExtResource("1_nnx6r")
+
+[node name="TabContainer" type="TabContainer" parent="."]
+clip_contents = true
+offset_right = 768.0
+offset_bottom = 448.0
+tab_alignment = 1
+
+[node name="Video" type="Button" parent="TabContainer"]
+visible = false
+layout_mode = 2
+flat = true
+
+[node name="ResolutionContainer" type="HBoxContainer" parent="TabContainer/Video"]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 7.0
+offset_right = 736.0
+offset_bottom = 32.0
+
+[node name="Label" type="Label" parent="TabContainer/Video/ResolutionContainer"]
+layout_mode = 2
+text = "Resolution
+"
+
+[node name="OptionButton" type="OptionButton" parent="TabContainer/Video/ResolutionContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+item_count = 14
+popup/item_0/text = "640x360"
+popup/item_0/id = 0
+popup/item_1/text = "640x480"
+popup/item_1/id = 1
+popup/item_2/text = "720x480"
+popup/item_2/id = 2
+popup/item_3/text = "800x600"
+popup/item_3/id = 3
+popup/item_4/text = "1024x768"
+popup/item_4/id = 4
+popup/item_5/text = "1280x720"
+popup/item_5/id = 5
+popup/item_6/text = "1280x1024"
+popup/item_6/id = 6
+popup/item_7/text = "1366x768"
+popup/item_7/id = 7
+popup/item_8/text = "1600x900"
+popup/item_8/id = 8
+popup/item_9/text = "1600x1200"
+popup/item_9/id = 9
+popup/item_10/text = "1920x1080"
+popup/item_10/id = 10
+popup/item_11/text = "1920x1200"
+popup/item_11/id = 11
+popup/item_12/text = "2560x1440"
+popup/item_12/id = 12
+popup/item_13/text = "3840x2160"
+popup/item_13/id = 13
+
+[node name="FullScreenContainer" type="HBoxContainer" parent="TabContainer/Video"]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 37.0
+offset_right = 736.0
+offset_bottom = 62.0
+
+[node name="Label" type="Label" parent="TabContainer/Video/FullScreenContainer"]
+layout_mode = 2
+text = "Full Screen
+"
+
+[node name="FullScreenButton" type="CheckButton" parent="TabContainer/Video/FullScreenContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VsyncContainer" type="HBoxContainer" parent="TabContainer/Video"]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 67.0
+offset_right = 736.0
+offset_bottom = 92.0
+
+[node name="Label" type="Label" parent="TabContainer/Video/VsyncContainer"]
+layout_mode = 2
+text = "Vsync"
+
+[node name="VsyncButton" type="CheckButton" parent="TabContainer/Video/VsyncContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Audio" type="Button" parent="TabContainer"]
+visible = false
+layout_mode = 2
+flat = true
+
+[node name="MainVolumn" type="HBoxContainer" parent="TabContainer/Audio"]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 7.0
+offset_right = 736.0
+offset_bottom = 32.0
+
+[node name="Label" type="Label" parent="TabContainer/Audio/MainVolumn"]
+layout_mode = 2
+text = "Main Volumn"
+
+[node name="HScrollBar" type="HScrollBar" parent="TabContainer/Audio/MainVolumn"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 4
+value = 50.0
+
+[node name="BgVolumn" type="HBoxContainer" parent="TabContainer/Audio"]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 37.0
+offset_right = 736.0
+offset_bottom = 62.0
+
+[node name="Label" type="Label" parent="TabContainer/Audio/BgVolumn"]
+layout_mode = 2
+text = "Music Volumn"
+
+[node name="HScrollBar" type="HScrollBar" parent="TabContainer/Audio/BgVolumn"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 4
+value = 50.0
+
+[node name="SFXVolumn" type="HBoxContainer" parent="TabContainer/Audio"]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 67.0
+offset_right = 736.0
+offset_bottom = 92.0
+
+[node name="Label" type="Label" parent="TabContainer/Audio/SFXVolumn"]
+layout_mode = 2
+text = "sFx Volumn"
+
+[node name="HScrollBar" type="HScrollBar" parent="TabContainer/Audio/SFXVolumn"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 4
+value = 50.0
+
+[node name="Gameplay" type="Button" parent="TabContainer"]
+visible = false
+layout_mode = 2
+flat = true
+
+[node name="LanguageContainer" type="HBoxContainer" parent="TabContainer/Gameplay"]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 7.0
+offset_right = 736.0
+offset_bottom = 32.0
+
+[node name="Label" type="Label" parent="TabContainer/Gameplay/LanguageContainer"]
+layout_mode = 2
+text = "Language"
+
+[node name="OptionButton" type="OptionButton" parent="TabContainer/Gameplay/LanguageContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+item_count = 2
+popup/item_0/text = "English"
+popup/item_0/id = 0
+popup/item_1/text = "中文"
+popup/item_1/id = 1
+
+[node name="Input" type="Button" parent="TabContainer"]
+visible = false
+layout_mode = 2
+flat = true
+
+[node name="ApplyButton" type="Button" parent="."]
+offset_left = 232.0
+offset_top = 388.0
+offset_right = 280.0
+offset_bottom = 413.0
+text = "Apply
+"
+
+[node name="CloseButton" type="Button" parent="."]
+offset_left = 488.0
+offset_top = 388.0
+offset_right = 544.0
+offset_bottom = 413.0
+text = "Return"
+
+[connection signal="item_selected" from="TabContainer/Video/ResolutionContainer/OptionButton" to="." method="_on_option_button_item_selected"]
+[connection signal="pressed" from="TabContainer/Video/FullScreenContainer/FullScreenButton" to="." method="_on_full_screen_button_pressed"]
+[connection signal="pressed" from="TabContainer/Video/VsyncContainer/VsyncButton" to="." method="_on_vsync_button_pressed"]
+[connection signal="pressed" from="ApplyButton" to="." method="_on_apply_button_pressed"]
+[connection signal="pressed" from="CloseButton" to="." method="_on_close_button_pressed"]

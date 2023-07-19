@@ -2,9 +2,9 @@
 
 [ext_resource type="PackedScene" uid="uid://cpo1prqyec8q6" path="res://Character/NPC/NPC.tscn" id="1_3jj44"]
 [ext_resource type="Texture2D" uid="uid://ptw1wtm8uppj" path="res://Character/NPC/Swordman/idle/idle-00.png" id="2_6uapf"]
+[ext_resource type="Script" path="res://Character/NPC/Swordman/Swordman.gd" id="2_whk35"]
 [ext_resource type="Texture2D" uid="uid://dp07n28lxshwr" path="res://Character/NPC/Swordman/idle/idle-01.png" id="3_xn3c7"]
 [ext_resource type="Texture2D" uid="uid://dmc41evmr3rjk" path="res://Character/NPC/Swordman/idle/idle-02.png" id="4_xj5u5"]
-[ext_resource type="Script" path="res://Character/NPC/Swordman/SwordmanFSM.gd" id="5_5hhyw"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_syvwj"]
 animations = [{
@@ -81,6 +81,12 @@ size = Vector2(54.75, 78.5)
 
 [node name="Swordman" instance=ExtResource("1_3jj44")]
 collision_mask = 1
+script = ExtResource("2_whk35")
+accerelation = null
+speed = null
+MAX_SPEED = null
+max_hp = null
+hp = null
 
 [node name="AnimatedSprite2D" parent="." index="0"]
 position = Vector2(0, 1.5)
@@ -97,12 +103,24 @@ libraries = {
 "": SubResource("AnimationLibrary_8urkc")
 }
 
-[node name="FiniteStateMachine" parent="." index="3"]
-script = ExtResource("5_5hhyw")
-
 [node name="PlayerDetection" parent="." index="4"]
 collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" parent="PlayerDetection" index="0"]
 shape = SubResource("RectangleShape2D_w1fbk")
+
+[node name="Interactive" parent="." index="5"]
+offset_left = -11.0
+offset_top = 35.0
+offset_right = 9.0
+offset_bottom = 61.0
+
+[node name="Dialog" parent="." index="6"]
+offset_left = -140.0
+offset_top = -46.0
+offset_right = -28.0
+offset_bottom = -20.0
+
+[node name="WeaponPos" type="Marker2D" parent="." index="7"]
+position = Vector2(55, -28)

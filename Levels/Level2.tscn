@@ -1,11 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://bgbcoc7mp1wer"]
+[gd_scene load_steps=3 format=3 uid="uid://bgbcoc7mp1wer"]
 
 [ext_resource type="PackedScene" uid="uid://rlqh4bgjud0q" path="res://Levels/LevelBase.tscn" id="1_27qfp"]
+[ext_resource type="Texture2D" uid="uid://cd4ggvioipso1" path="res://Material/Background/b3.png" id="2_2c4rl"]
 
 [node name="Level2" instance=ExtResource("1_27qfp")]
 
-[node name="UI" parent="." index="0"]
-visible = false
-
-[node name="CanvasLayer" parent="." index="1"]
-visible = false
+[node name="GameBG" parent="Player/Camera2D" index="0"]
+texture = ExtResource("2_2c4rl")

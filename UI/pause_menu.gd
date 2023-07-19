@@ -20,4 +20,14 @@ func _on_exit_button_pressed():
 
 
 func _on_title_button_pressed():
+	get_tree().paused = false
 	get_tree().change_scene_to_file("res://main.tscn")
+
+
+func _on_option_button_pressed():
+	get_node("OptionScene").show()
+
+
+func _on_resume_button_pressed():
+	get_tree().paused = false
+	hide()
