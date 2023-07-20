@@ -2,12 +2,14 @@
 
 [ext_resource type="PackedScene" uid="uid://rlqh4bgjud0q" path="res://Levels/LevelBase.tscn" id="1_3jckd"]
 [ext_resource type="Texture2D" uid="uid://cd4ggvioipso1" path="res://Material/Background/b3.png" id="2_aoigy"]
-[ext_resource type="PackedScene" uid="uid://cwnipgli54dgf" path="res://Levels/MapGenerator.tscn" id="3_vdtos"]
+[ext_resource type="Script" path="res://Levels/Level1.gd" id="2_rovfx"]
 [ext_resource type="PackedScene" uid="uid://gpgmu4256wq0" path="res://Character/Emeny/Mushroom/Mushroom.tscn" id="4_x76ix"]
 [ext_resource type="PackedScene" uid="uid://02yqnpl71dd4" path="res://Prop/Portal.tscn" id="5_kypcn"]
 [ext_resource type="PackedScene" uid="uid://dburyq5peht2c" path="res://Character/Emeny/Archer/Archer.tscn" id="5_w584x"]
 
 [node name="Level1" instance=ExtResource("1_3jckd")]
+script = ExtResource("2_rovfx")
+component_num = null
 
 [node name="Player" parent="." index="2"]
 position = Vector2(0, -40)
@@ -22,12 +24,8 @@ offset_bottom = 189.0
 color = Color(0.129412, 0.14902, 0.247059, 1)
 
 [node name="GameBG" parent="Player/Camera2D" index="1"]
+position = Vector2(0, 5)
 texture = ExtResource("2_aoigy")
-
-[node name="TileMap" parent="." index="3"]
-layer_0/tile_data = PackedInt32Array(65516, 131072, 0, 65517, 196608, 0, 65518, 131072, 0, 65519, 196608, 0, 65520, 131072, 0, 65521, 65536, 0, 65522, 131072, 0, 65523, 65536, 0, 65524, 65536, 0, 65525, 65536, 0, 65526, 196608, 0, 65527, 131072, 0, 65528, 196608, 0, 65529, 65536, 0, 65530, 65536, 0, 65531, 196608, 0, 65532, 131072, 0, 65533, 65536, 0, 65534, 65536, 0, 65535, 65536, 0, 0, 65536, 0, 1, 65536, 0, 2, 196608, 0, 3, 65536, 0, 4, 131072, 0, 5, 196608, 0, 6, 65536, 0, 7, 196608, 0, 8, 131072, 0, 9, 65536, 0, 10, 131072, 0, 11, 65536, 0, 12, 65536, 0, 13, 196608, 0, 17, 196608, 0, 14, 196608, 0, 15, 65536, 0, 16, 131072, 0, 18, 131072, 0, 19, 262144, 0, 65515, 0, 0, 131051, 0, 4, 131052, 196608, 4, 131053, 65536, 4, 131054, 131072, 4, 131055, 196608, 4, 131056, 131072, 4, 131057, 65536, 4, 131058, 196608, 4, 131059, 196608, 4, 131060, 131072, 4, 131061, 196608, 4, 131062, 65536, 4, 131063, 131072, 4, 131064, 589824, 12, 196600, 0, 4, 196601, 262144, 4, 131065, 589824, 1, 131066, 131072, 4, 131067, 196608, 4, 131068, 131072, 4, 131069, 196608, 4, 131070, 131072, 4, 131071, 131072, 4, 65536, 65536, 4, 65537, 196608, 4, 65538, 196608, 4, 65539, 196608, 4, 65540, 196608, 4, 65541, 65536, 4, 65542, 196608, 4, 65543, 131072, 4, 65544, 65536, 4, 65545, 131072, 4, 65546, 65536, 4, 65547, 196608, 4, 65548, 65536, 4, 65549, 131072, 4, 65550, 131072, 4, 65551, 65536, 4, 65552, 65536, 4, 65553, 65536, 4, 65554, 65536, 4, 65555, 262144, 4)
-
-[node name="MapGenerator" parent="TileMap" index="0" instance=ExtResource("3_vdtos")]
 
 [node name="Mushroom" parent="." index="4" instance=ExtResource("4_x76ix")]
 position = Vector2(-200, -32)

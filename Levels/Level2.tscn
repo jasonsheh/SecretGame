@@ -5,5 +5,11 @@
 
 [node name="Level2" instance=ExtResource("1_27qfp")]
 
+[node name="UI" parent="." index="0"]
+visible = false
+
+[node name="CanvasLayer" parent="." index="1"]
+visible = false
+
 [node name="GameBG" parent="Player/Camera2D" index="0"]
 texture = ExtResource("2_2c4rl")
