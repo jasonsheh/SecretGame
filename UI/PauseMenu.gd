@@ -13,11 +13,14 @@ func _on_toggle_game_paused(is_paused):
 	else:
 		hide()
 
+func _input(event : InputEvent):
+	if event.is_action_pressed("ui_cancel"):
+		get_tree().paused = false
+		get_node("OptionScene").hide()
 
-
-func _on_exit_button_pressed():
-	get_tree().quit()
-
+func _on_resume_button_pressed():
+	get_tree().paused = false
+	hide()
 
 func _on_title_button_pressed():
 	get_tree().paused = false
@@ -28,6 +31,5 @@ func _on_option_button_pressed():
 	get_node("OptionScene").show()
 
 
-func _on_resume_button_pressed():
-	get_tree().paused = false
-	hide()
+func _on_exit_button_pressed():
+	get_tree().quit()

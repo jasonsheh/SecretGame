@@ -3,3 +3,4 @@
 [ext_resource type="PackedScene" uid="uid://damah84yfg1x7" path="res://Item/Projectile/Projectile.tscn" id="1_ru10q"]
 
 [node name="ArrowSimple" instance=ExtResource("1_ru10q")]
+projectile_speed = 300

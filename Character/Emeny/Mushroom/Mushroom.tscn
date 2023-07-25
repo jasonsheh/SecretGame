@@ -413,6 +413,10 @@ height = 26.0
 [node name="Mushroom" instance=ExtResource("1_yppl7")]
 collision_mask = 3
 script = ExtResource("2_bmbgy")
+speed = 120
+MAX_SPEED = 200
+max_hp = 50
+hp = 50
 
 [node name="AnimatedSprite2D" parent="." index="0"]
 sprite_frames = SubResource("SpriteFrames_2hsf6")

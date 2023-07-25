@@ -1,22 +1,22 @@
 [gd_scene load_steps=5 format=3 uid="uid://cdxjlpavwprj8"]
 
 [ext_resource type="PackedScene" uid="uid://cgr35j5xi6h4t" path="res://Item/Weapon/Weapon.tscn" id="1_r5thk"]
-[ext_resource type="Texture2D" uid="uid://biab74nmk4ia" path="res://Material/All_Weapon.png" id="2_8y6dr"]
+[ext_resource type="Texture2D" uid="uid://btudhuslhe3or" path="res://Material/ALL.png" id="2_eoh5k"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_lujb4"]
-atlas = ExtResource("2_8y6dr")
-region = Rect2(0, 1440, 32, 32)
+[sub_resource type="AtlasTexture" id="AtlasTexture_14irg"]
+atlas = ExtResource("2_eoh5k")
+region = Rect2(0, 1441, 30, 30)
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ucfr5"]
-radius = 6.92819
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0lusv"]
+radius = 8.9282
 height = 17.8564
 
 [node name="Warhammer" instance=ExtResource("1_r5thk")]
 
-[node name="Sprite2D" parent="." index="0"]
-texture = SubResource("AtlasTexture_lujb4")
+[node name="Sprite2D" parent="Hitbox" index="0"]
+rotation = 0.0
+texture = SubResource("AtlasTexture_14irg")
 
-[node name="CollisionShape2D" parent="Sprite2D/Hitbox" index="0"]
-position = Vector2(18.5606, -7.45006)
-rotation = -0.785397
-shape = SubResource("CapsuleShape2D_ucfr5")
+[node name="CollisionShape2D" parent="Hitbox" index="1"]
+position = Vector2(18.5606, -7.45)
+shape = SubResource("CapsuleShape2D_0lusv")

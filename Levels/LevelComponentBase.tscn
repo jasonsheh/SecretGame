@@ -5,5 +5,8 @@
 [node name="LevelComponentBase" type="Node2D"]
 
 [node name="TileMap" type="TileMap" parent="."]
+z_index = -1
 tile_set = ExtResource("1_gx5th")
 format = 2
+
+[node name="PlayerSpawnPos" type="Marker2D" parent="."]

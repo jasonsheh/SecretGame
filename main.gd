@@ -24,6 +24,8 @@ func set_config():
 		DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_ENABLED)
 	else:
 		DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
+	
+	TranslationServer.set_locale(_settings.game.language)
 
 
 

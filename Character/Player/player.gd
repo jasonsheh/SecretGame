@@ -2,55 +2,84 @@ extends Character
 
 enum {UP, DOWN}
 
+var is_on_ladder: bool = false
+var is_in_item: bool = false
+var pick_up_item: Node2D = null
 
-signal weapon_switched(prev_index, new_index)
-signal weapon_picked_up(weapon_texture)
-signal weapon_droped(index)
+signal weapon_switched(type)
+signal weapon_picked_up(type, weapon_texture)
+signal weapon_droped(type)
 
 var current_weapon: Node2D
-@onready var weapons: Node2D = get_node("Weapons")
+const MELEE_TYPE: int = 0
+const RANGE_TYPE: int = 1
+var current_weapon_type: int = 0
+var weapon_count: int = 0
+@onready var melee_weapon: Node2D = get_node("MeleeWeapon")
+@onready var range_weapon: Node2D = get_node("RangeWeapon")
 
 func _ready() -> void:
 	_restore_previous_state()
 	
 func _restore_previous_state() -> void:
 	self.hp = SaveData.hp
-	if SaveData.weapons.size() > 0:
-		for _weapon in SaveData.weapons:
-			_weapon = _weapon.duplicate()
-			_weapon.position = Vector2.ZERO
-			weapons.add_child(_weapon)
-			_weapon.hide()
-			
-			emit_signal("weapon_picked_up", _weapon.get_texture())
-			if weapons.get_child_count() > 1:
-				emit_signal("weapon_switched", weapons.get_child_count() - 2, weapons.get_child_count() - 1)
-			else:
-				emit_signal("weapon_switched", weapons.get_child_count() - 1, weapons.get_child_count() - 1)
-		current_weapon = weapons.get_child(SaveData.equipped_weapon_index)
-		current_weapon.show()
-
+	var _weapon: Node2D
+	current_weapon_type = SaveData.equipped_weapon_type
 	
+	for weapon_type in SaveData.weapon.keys():
+		if SaveData.weapon[weapon_type]:
+			weapon_count += 1
+			_weapon = SaveData.weapon[weapon_type].duplicate()
+			_weapon.hide()
+			_weapon.position = Vector2.ZERO
+		
+			if weapon_type == MELEE_TYPE:
+				melee_weapon.add_child(_weapon)
+			if weapon_type == RANGE_TYPE:
+				range_weapon.add_child(_weapon)
+			emit_signal("weapon_picked_up", weapon_type, _weapon.get_texture())
+		
+	if current_weapon_type == MELEE_TYPE and melee_weapon.get_child_count() > 0:
+		current_weapon = melee_weapon.get_child(0)
+	if current_weapon_type == RANGE_TYPE and range_weapon.get_child_count() > 0:
+		current_weapon = range_weapon.get_child(0)
+	
+	if current_weapon:
+		current_weapon.show()
+		current_weapon.get_node("ItemInfo").hide()
+
+
 func get_input() -> void:
 	move_direction.x = Input.get_axis("ui_left", "ui_right")
 	
 	if Input.is_action_just_pressed("ui_up") and is_on_floor():
 		jump()
 	
+	if is_on_ladder:
+		move_direction.y = Input.get_axis("ui_up", "ui_down")
+		climb()
+	
 	if current_weapon and not current_weapon.is_busy():
-		if Input.is_action_just_released("ui_previous_weapon"):
-			_switch_weapon(UP)
-		elif Input.is_action_just_released("ui_next_weapon"):
-			_switch_weapon(DOWN)
-		elif Input.is_action_just_pressed("ui_drop") and weapons.get_child_count() > 0:
-			# 不能丢掉唯一的武器，但实际上这里是不能丢掉编号位0的武器
+		if Input.is_action_just_released("ui_previous_weapon") or Input.is_action_just_released("ui_next_weapon"):
+			_switch_weapon()
+		elif Input.is_action_just_pressed("ui_drop") and (melee_weapon.get_child_count() + range_weapon.get_child_count()) > 0:
 			_drop_weapon()
+			return
 		current_weapon.get_input()
+	
+	# print(is_in_item, Input.is_action_just_released("ui_interact"))
+	if is_in_item and Input.is_action_just_released("ui_interact"):
+		pick_up_item.get_node("PlayerDetector").set_collision_mask_value(1, false)
+		pick_up_item.get_node("PlayerDetector").set_collision_mask_value(2, false)
+		pick_up_weapon(pick_up_item)
+		pick_up_item.position = Vector2.ZERO
+		pick_up_item.get_node("ItemInfo").hide()
+		is_in_item = false
+		pick_up_item = null
+	
 
 
 func _process(_delta) -> void:
-	# Add the gravity.
-	
 	var mouse_direction = (get_global_mouse_position() - global_position).normalized()
 	if mouse_direction.x > 0 and character_sprite.flip_h:
 		character_sprite.flip_h = false
@@ -61,58 +90,89 @@ func _process(_delta) -> void:
 		current_weapon.move(mouse_direction)
 	
 
-func _switch_weapon(button: int) -> void:
-	var prev_index: int = current_weapon.get_index()
-	var index: int = prev_index
-	if button == UP:
-		index -= 1
-		if index < 0:
-			index = weapons.get_child_count() - 1
-	else:
-		index += 1
-		if index > weapons.get_child_count() - 1:
-			index = 0
-	
+func _switch_weapon() -> void:
 	current_weapon.hide()
-	current_weapon = weapons.get_child(index)
+	if weapon_count == 0:
+		current_weapon = null
+		return
+	if current_weapon_type == MELEE_TYPE and range_weapon.get_child_count() > 0:
+		current_weapon = range_weapon.get_child(0)
+		current_weapon_type = RANGE_TYPE
+	elif current_weapon_type == RANGE_TYPE and melee_weapon.get_child_count() > 0:
+		current_weapon = melee_weapon.get_child(0)
+		current_weapon_type = MELEE_TYPE
 	current_weapon.show()
-	SaveData.equipped_weapon_index = index
-	
-	emit_signal("weapon_switched", prev_index, index)
-
+	current_weapon.get_node("ItemInfo").hide()
+		
+	SaveData.equipped_weapon_type = current_weapon_type
+	emit_signal("weapon_switched", current_weapon_type)
 
 
 func pick_up_weapon(weapon: Node2D) -> void:
-	SaveData.weapons.append(weapon.duplicate())
-	
-	var prev_index: int = SaveData.equipped_weapon_index
-	var new_index: int = weapons.get_child_count()
-	
-	SaveData.equipped_weapon_index = new_index
-	weapon.get_parent().call_deferred("remove_child", weapon)
-	weapons.call_deferred("add_child", weapon)
-	weapon.set_deferred("owner", weapons)
+	SaveData.equipped_weapon_type = weapon.type
 	if current_weapon:
 		current_weapon.hide()
 	current_weapon = weapon
+	current_weapon_type = weapon.type
 	
-	emit_signal("weapon_picked_up", weapon.get_texture())
-	emit_signal("weapon_switched", prev_index, new_index)
+	# 移除世界中的武器
+	weapon.get_parent().call_deferred("remove_child", weapon)
+	weapon_count += 1
+	if weapon.type == MELEE_TYPE:
+		if melee_weapon.get_child_count() != 0:
+			# 把当前持有的武器扔掉
+			_drop_weapon()
+			current_weapon.hide()
+			
+		melee_weapon.call_deferred("add_child", weapon)
+		weapon.set_deferred("owner", melee_weapon)
+		
+	if weapon.type == RANGE_TYPE:
+		if range_weapon.get_child_count() != 0:
+			_drop_weapon()
+			current_weapon.hide()
+			
+		range_weapon.call_deferred("add_child", weapon)
+		weapon.set_deferred("owner", range_weapon)
+
+	current_weapon = weapon
+	current_weapon.show()
+	current_weapon.get_node("ItemInfo").hide()
+	current_weapon_type = weapon.type
 	
+	SaveData.weapon[weapon.type] = weapon.duplicate()
+	SaveData.equipped_weapon_type = current_weapon_type
+	
+	emit_signal("weapon_picked_up", weapon.type, weapon.get_texture())
+	emit_signal("weapon_switched", weapon.type)
+
+
 func _drop_weapon() -> void:
-	SaveData.weapons.remove_at(current_weapon.get_index())
-	var weapon_to_drop: Node2D = current_weapon
-	_switch_weapon(UP)
-	
-	emit_signal("weapon_droped", weapon_to_drop.get_index())
-	
-	weapons.call_deferred("remove_child", weapon_to_drop)
+	var weapon_to_drop: Node2D
+	emit_signal("weapon_droped", current_weapon_type)
+	if current_weapon_type == MELEE_TYPE:
+		weapon_to_drop = melee_weapon.get_child(0)
+		melee_weapon.call_deferred("remove_child", weapon_to_drop)
+	if current_weapon_type == RANGE_TYPE:
+		weapon_to_drop = range_weapon.get_child(0)
+		range_weapon.call_deferred("remove_child", weapon_to_drop)
+	weapon_count -= 1
 	get_parent().call_deferred("add_child", weapon_to_drop)
 	weapon_to_drop.set_owner(get_parent())
 	
+	_switch_weapon()
+	
 	await weapon_to_drop.tree_entered
 	weapon_to_drop.show()
-
+	weapon_to_drop.get_node("ItemInfo").hide()
+	
 	var throw_dir: Vector2 = (get_global_mouse_position() - position).normalized()
 	weapon_to_drop.interpolate_pos(position, position + throw_dir * 50)
+
+
+func _on_ladder_detector_body_entered(_body):
+	is_on_ladder = true
+
+func _on_ladder_detector_body_exited(_body):
+	is_on_ladder = false
 

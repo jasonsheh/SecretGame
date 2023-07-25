@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=3 uid="uid://bty3bjb5glty6"]
+
+[ext_resource type="PackedScene" uid="uid://c8ecdgjb8vc54" path="res://Item/Relic/Relic.tscn" id="1_2fui7"]
+[ext_resource type="Script" path="res://Item/Relic/RelicCystalHeart.gd" id="2_26owl"]
+[ext_resource type="Texture2D" uid="uid://c36mbjyv7wwf7" path="res://Item/Relic/CystalHeart.png" id="2_jd5g7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d7bvv"]
+size = Vector2(64, 80)
+
+[node name="CystalHeart" instance=ExtResource("1_2fui7")]
+script = ExtResource("2_26owl")
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("2_jd5g7")
+
+[node name="CollisionShape2D" parent="Area2D" index="0"]
+position = Vector2(0, 4)
+shape = SubResource("RectangleShape2D_d7bvv")

@@ -9,10 +9,18 @@
 
 [node name="Level1" instance=ExtResource("1_3jckd")]
 script = ExtResource("2_rovfx")
-component_num = null
+component_num = 5
 
-[node name="Player" parent="." index="2"]
+[node name="Portal" parent="." index="2" instance=ExtResource("5_kypcn")]
+position = Vector2(512, -136)
+next_level = "Level2"
+
+[node name="Player" parent="." index="4"]
+z_index = 0
 position = Vector2(0, -40)
+
+[node name="Camera2D" parent="Player" index="6"]
+offset = Vector2(0, -100)
 
 [node name="ColorRect" type="ColorRect" parent="Player/Camera2D" index="0"]
 visible = false
@@ -24,15 +32,11 @@ offset_bottom = 189.0
 color = Color(0.129412, 0.14902, 0.247059, 1)
 
 [node name="GameBG" parent="Player/Camera2D" index="1"]
-position = Vector2(0, 5)
+position = Vector2(9.53674e-07, -99)
 texture = ExtResource("2_aoigy")
-
-[node name="Mushroom" parent="." index="4" instance=ExtResource("4_x76ix")]
-position = Vector2(-200, -32)
 
 [node name="Archer" parent="." index="5" instance=ExtResource("5_w584x")]
 position = Vector2(256, -48)
 
-[node name="Portal" parent="." index="6" instance=ExtResource("5_kypcn")]
-position = Vector2(576, -40)
-next_level = "Level2"
+[node name="Mushroom" parent="." index="6" instance=ExtResource("4_x76ix")]
+position = Vector2(-232, -16)

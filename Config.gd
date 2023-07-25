@@ -11,14 +11,14 @@ func save_config(_settings: Dictionary) -> void:
 			config.set_value(section, key, _settings[section][key])
 
 	# Save it to a file (overwrite if already exists).
-	config.save("user://scores.cfg")
+	config.save("user://saves.cfg")
 
 
 func load_config() -> Dictionary:
 	var score_data = {}
 	var config = ConfigFile.new()
 	# Load data from a file.
-	var err = config.load("user://scores.cfg")
+	var err = config.load("user://saves.cfg")
 	if err != OK:
 		return set_default_config()
 
@@ -39,7 +39,9 @@ func set_default_config() -> Dictionary:
 			vsync = false
 		},
 		audio = {},
-		game = {},
+		game = {
+			language = "en"
+		},
 		input = {},
 	}
 	save_config(_settings)

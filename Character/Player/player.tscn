@@ -1,7 +1,8 @@
-[gd_scene load_steps=56 format=3 uid="uid://diq0qkwvmmy2q"]
+[gd_scene load_steps=63 format=3 uid="uid://diq0qkwvmmy2q"]
 
 [ext_resource type="PackedScene" uid="uid://b6xbyc8gujjhk" path="res://Character/character.tscn" id="1_rqjqu"]
 [ext_resource type="Script" path="res://Character/Player/Player.gd" id="2_4slo7"]
+[ext_resource type="Texture2D" uid="uid://p31cxe6fgclj" path="res://Character/Player/climb/player climb-back 48x48.png" id="3_7ige2"]
 [ext_resource type="Texture2D" uid="uid://q6wumk3cygxf" path="res://Character/Player/death/Player Death 64x64.png" id="3_hbrpk"]
 [ext_resource type="Texture2D" uid="uid://wfmllulk8w0g" path="res://Character/Player/fall/player jump 48x48.png" id="4_72dn8"]
 [ext_resource type="Texture2D" uid="uid://cwp10y55t5qtn" path="res://Character/Player/hurt/Player Hurt 48x48.png" id="5_hryui"]
@@ -9,6 +10,22 @@
 [ext_resource type="Texture2D" uid="uid://mokoea4fcne2" path="res://Character/Player/jump/player jump 48x48.png" id="7_n3fh3"]
 [ext_resource type="Texture2D" uid="uid://dlyod2l5amhrb" path="res://Character/Player/run/run cycle 48x48.png" id="8_h0orx"]
 [ext_resource type="Script" path="res://Character/Player/FiniteStateMachine.gd" id="28_al3e5"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tu0g6"]
+atlas = ExtResource("3_7ige2")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cwaiu"]
+atlas = ExtResource("3_7ige2")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ihu5w"]
+atlas = ExtResource("3_7ige2")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dboem"]
+atlas = ExtResource("3_7ige2")
+region = Rect2(144, 0, 48, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vdhru"]
 atlas = ExtResource("3_hbrpk")
@@ -156,6 +173,23 @@ region = Rect2(336, 0, 48, 48)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_85b5o"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tu0g6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cwaiu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ihu5w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dboem")
+}],
+"loop": true,
+"name": &"climb",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_vdhru")
@@ -314,6 +348,35 @@ tracks/0/keys = {
 "values": [1]
 }
 
+[sub_resource type="Animation" id="Animation_ompe7"]
+resource_name = "climb"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"climb"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
 [sub_resource type="Animation" id="Animation_oxui0"]
 resource_name = "death"
 tracks/0/type = "value"
@@ -372,7 +435,7 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id="Animation_fvp2u"]
 resource_name = "hurt"
-length = 0.8
+length = 0.4
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -392,7 +455,7 @@ tracks/1/path = NodePath("AnimatedSprite2D:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [0, 1, 2, 3]
@@ -487,6 +550,7 @@ tracks/1/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_saf2c"]
 _data = {
 "RESET": SubResource("Animation_842d2"),
+"climb": SubResource("Animation_ompe7"),
 "death": SubResource("Animation_oxui0"),
 "fall": SubResource("Animation_3wpp1"),
 "hurt": SubResource("Animation_fvp2u"),
@@ -495,14 +559,18 @@ _data = {
 "run": SubResource("Animation_h6l25")
 }
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_an6cc"]
+size = Vector2(9, 25)
+
 [node name="player" instance=ExtResource("1_rqjqu")]
+z_index = 2
 collision_layer = 2
 collision_mask = 29
 script = ExtResource("2_4slo7")
 
 [node name="AnimatedSprite2D" parent="." index="0"]
 sprite_frames = SubResource("SpriteFrames_85b5o")
-animation = &"idle"
+animation = &"run"
 frame = 1
 
 [node name="CollisionShape2D" parent="." index="1"]
@@ -517,4 +585,17 @@ libraries = {
 [node name="FiniteStateMachine" parent="." index="3"]
 script = ExtResource("28_al3e5")
 
-[node name="Weapons" type="Node2D" parent="." index="4"]
+[node name="MeleeWeapon" type="Node2D" parent="." index="4"]
+
+[node name="RangeWeapon" type="Node2D" parent="." index="5"]
+
+[node name="LadderDetector" type="Area2D" parent="." index="6"]
+collision_layer = 0
+collision_mask = 32
+
+[node name="LadderShape2D" type="CollisionShape2D" parent="LadderDetector" index="0"]
+position = Vector2(-0.5, 2.5)
+shape = SubResource("RectangleShape2D_an6cc")
+
+[connection signal="body_entered" from="LadderDetector" to="." method="_on_ladder_detector_body_entered"]
+[connection signal="body_exited" from="LadderDetector" to="." method="_on_ladder_detector_body_exited"]

@@ -2,7 +2,7 @@ extends FiniteStateMachine
 
 
 func _init() -> void:
-	for _state in ["idle", "run", "jump", "fall", "hurt", "death"]:
+	for _state in ["idle", "run", "jump", "fall", "hurt", "death", "climb"]:
 		_add_state(_state)
 	
 func _ready() -> void:
@@ -20,27 +20,41 @@ func _get_transition() -> int:
 			if parent.velocity.x != 0:
 				return states.run
 				
-			if parent.velocity.y > 0:
+			if parent.velocity.y > 0 and not parent.is_on_ladder:
 				return states.fall
 			
-			if parent.velocity.y < 0:
+			if parent.velocity.y < 0 and not parent.is_on_ladder:
 				return states.jump
+				
+			if parent.velocity.y != 0 and parent.is_on_ladder:
+				return states.climb
 				
 		states.run:
 			if parent.velocity.x == 0:
 				return states.idle
+			
+			if parent.velocity.y != 0 and parent.is_on_ladder:
+				return states.climb
 
-			if parent.velocity.y > 0:
+			if parent.velocity.y > 0 and not parent.is_on_ladder:
 				return states.fall
 			
-			if parent.velocity.y < 0:
+			if parent.velocity.y < 0 and not parent.is_on_ladder:
 				return states.jump
 		
 		states.fall:
+			if parent.velocity.y != 0 and parent.is_on_ladder:
+				return states.climb
 			if parent.velocity.y == 0:
 				return states.idle
 		
 		states.jump:
+			if parent.velocity.y != 0 and parent.is_on_ladder:
+				return states.climb
+			if parent.velocity.y == 0:
+				return states.idle
+		
+		states.climb:
 			if parent.velocity.y == 0:
 				return states.idle
 		
@@ -64,6 +78,8 @@ func _enter_state(_previous_state: int, _new_state: int) -> void:
 			character_anim.play("jump")
 		states.fall:
 			character_anim.play("fall")
+		states.climb:
+			character_anim.play("climb")
 		states.hurt:
 			character_anim.play("hurt")
 		states.death:

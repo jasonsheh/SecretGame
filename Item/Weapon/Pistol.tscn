@@ -29,16 +29,10 @@ _data = {
 
 [node name="Pistol" instance=ExtResource("1_8uua3")]
 script = ExtResource("2_4wlgp")
-is_ranged = true
+type = 1
 
-[node name="Sprite2D" parent="." index="0"]
-rotation = 0.0
+[node name="Sprite2D" parent="Hitbox" index="1"]
 texture = ExtResource("2_a8dq8")
-offset = Vector2(10, 0)
-
-[node name="CollisionShape2D" parent="Sprite2D/Hitbox" index="0"]
-position = Vector2(29.3938, -16.9707)
-shape = null
 
 [node name="AnimationPlayer" parent="." index="1"]
 libraries = {

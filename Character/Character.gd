@@ -2,6 +2,8 @@ extends CharacterBody2D
 
 class_name Character
 
+const damage_indicator: PackedScene = preload("res://Item/Weapon/DamageIndicator.tscn")
+
 const FRICTION: float = 0.15
 @export var accerelation: int = 30
 @export var speed: int = 150
@@ -26,7 +28,7 @@ var move_direction: Vector2 = Vector2.ZERO
 func _physics_process(_delta: float) -> void:
 	move_and_slide()
 	velocity.x = lerp(velocity.x, 0.0, FRICTION)
-	if abs(velocity.x) < 1:
+	if abs(velocity.x) < 10:
 		velocity.x = 0
 
 
@@ -37,21 +39,31 @@ func move(delta) -> void:
 	if not is_on_floor():
 		velocity.y += gravity * delta
 
+
 func jump() -> void:
 	velocity.y = JUMP_VELOCITY
 
+
+func climb() -> void:
+	velocity.y = move_direction.y * MAX_SPEED / 2
+
 	
 func take_damage(damage: int, direction: Vector2, force: int) -> void:
-	self.hp -= damage
 	if state_machine.state != state_machine.states.hurt:
+		self.hp -= damage
+		
+		var _damage_indicator = damage_indicator.instantiate()
+		add_child(_damage_indicator)
+		_damage_indicator.label.text = str(damage)
+		
 		if name == "Player":
 			SaveData.hp = hp
 		if hp > 0:
 			state_machine.set_state(state_machine.states.hurt)
-			velocity += direction * force
+			velocity.x += direction.x * force
 		else:
 			state_machine.set_state(state_machine.states.death)
-			velocity += direction * force * 1.5
+			velocity.x += direction.x * force * 1.5
 
 
 func set_hp(new_hp: int) -> void:

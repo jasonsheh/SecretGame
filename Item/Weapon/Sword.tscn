@@ -1,21 +1,21 @@
 [gd_scene load_steps=5 format=3 uid="uid://dieditjdc020i"]
 
 [ext_resource type="PackedScene" uid="uid://cgr35j5xi6h4t" path="res://Item/Weapon/Weapon.tscn" id="1_hqtfp"]
-[ext_resource type="Texture2D" uid="uid://biab74nmk4ia" path="res://Material/All_Weapon.png" id="2_nate2"]
+[ext_resource type="Texture2D" uid="uid://btudhuslhe3or" path="res://Material/ALL.png" id="2_iuq1d"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_odsva"]
-atlas = ExtResource("2_nate2")
-region = Rect2(0, 544, 32, 32)
+[sub_resource type="AtlasTexture" id="AtlasTexture_etcpc"]
+atlas = ExtResource("2_iuq1d")
+region = Rect2(0, 543, 32, 32)
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ma6or"]
-radius = 2.72818
-height = 39.6872
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2anv4"]
+radius = 3.4641
 
 [node name="Sword" instance=ExtResource("1_hqtfp")]
 
-[node name="Sprite2D" parent="." index="0"]
-texture = SubResource("AtlasTexture_odsva")
+[node name="Sprite2D" parent="Hitbox" index="0"]
+rotation = 0.0
+texture = SubResource("AtlasTexture_etcpc")
 
-[node name="CollisionShape2D" parent="Sprite2D/Hitbox" index="0"]
-position = Vector2(16.1425, -5.95134)
-shape = SubResource("CapsuleShape2D_ma6or")
+[node name="CollisionShape2D" parent="Hitbox" index="1"]
+position = Vector2(19.0783, -9.38186)
+shape = SubResource("CapsuleShape2D_2anv4")

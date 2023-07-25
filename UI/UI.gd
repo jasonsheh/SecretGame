@@ -3,19 +3,16 @@ extends CanvasLayer
 const INVENTORY_ITEM_SCENE: PackedScene = preload("res://UI/InventoryItem.tscn")
 
 
-const MIN_HEALTH: int = 0
-
-var max_hp: int = 100
-
 @onready var player: CharacterBody2D = get_node("../Player")
 @onready var health_bar: TextureProgressBar = get_node("HealthBar")
+@onready var energy_bar: TextureProgressBar = get_node("EnergyBar")
 
-@onready var inventory: HBoxContainer = get_node("PanelContainer/Inventory")
+@onready var MeleeInventory: PanelContainer = get_node("MeleeInventory")
+@onready var RangeInventory: PanelContainer = get_node("RangeInventory")
 
 
 func _ready() -> void:
-	max_hp = player.max_hp
-	_update_health_bar(100)
+	_update_health_bar(player.max_hp)
 
 
 func _update_health_bar(new_value: int) -> void:
@@ -27,17 +24,29 @@ func _on_player_hp_changed(new_hp: int) -> void:
 	_update_health_bar(new_hp)
 
 
-func _on_player_weapon_droped(index: int) -> void:
-	inventory.get_child(index).queue_free()
+func _on_player_weapon_droped(type: int) -> void:
+	if type == 0:
+		MeleeInventory.get_child(0).queue_free()
+	elif type == 1:
+		RangeInventory.get_child(0).queue_free()
 
 
-func _on_player_weapon_picked_up(weapon_texture: Texture2D) -> void:
+func _on_player_weapon_picked_up(type: int, weapon_texture: Texture2D) -> void:
 	var new_inventory_item: TextureRect = INVENTORY_ITEM_SCENE.instantiate()
-	inventory.add_child(new_inventory_item)
+	if type == 0:
+		MeleeInventory.add_child(new_inventory_item)
+	elif type == 1:
+		RangeInventory.add_child(new_inventory_item)
 	new_inventory_item.initialize(weapon_texture)
-	
 
 
-func _on_player_weapon_switched(prev_index: int, new_index: int) -> void:
-	inventory.get_child(prev_index).deselect()
-	inventory.get_child(new_index).select()
+func _on_player_weapon_switched(type: int) -> void:
+	if type == 0:
+		MeleeInventory.get_child(0).select()
+		if RangeInventory.get_child_count() > 0:
+			RangeInventory.get_child(0).deselect()
+	elif type == 1:
+		RangeInventory.get_child(0).select()
+		if MeleeInventory.get_child_count() > 0:
+			MeleeInventory.get_child(0).deselect()
+

@@ -1,8 +1,11 @@
 extends Hitbox
 
 
-var direction: Vector2 = Vector2.ZERO
-var projectile_speed: int = 200
+var direction: Vector2 = Vector2.ZERO 
+
+@export var projectile_damage: int = 10
+@export var projectile_speed: int = 200
+@export var projectile_size: int = 1
 
 var is_enemy_shoot:bool = false
 
@@ -35,5 +38,5 @@ func set_projectile_mask() -> void:
 		
 func _collide(body: Node2D) -> void:
 	if body.has_method("take_damage"):
-		body.take_damage(damage, knockback_direction, knockback_force)
+		body.take_damage(projectile_damage, knockback_direction, knockback_force)
 	queue_free()

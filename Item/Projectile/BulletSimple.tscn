@@ -9,6 +9,7 @@ region = Rect2(20, 28, 28, 28)
 
 [node name="BulletSimple" instance=ExtResource("1_hr70p")]
 collision_mask = 0
+projectile_speed = 500
 
 [node name="Sprite2D" parent="." index="1"]
 position = Vector2(0, -9.53674e-07)
