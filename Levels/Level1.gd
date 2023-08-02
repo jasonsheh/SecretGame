@@ -9,10 +9,15 @@ const Level_Component: Array = [
 const Chest_list: Array = [
 	preload("res://Item/Chest/ChestBase.tscn"),
 ]
-#const Middle_Component: Array = []
-#const Edge_Component: Array = []
+
+const Enemy_list: Array = [
+	preload("res://Character/Enemy/Archer/EnemyArcher.tscn"),
+	preload("res://Character/Enemy/Mushroom/Mushroom.tscn"),
+	preload("res://Character/Enemy/SpitMinion/EnemySpitMinion.tscn"),
+]
+
 const TILE_SIZE: int = 16
-@export var component_num: int = 5
+@export var component_num: int = 7
 
 @onready var player: Node2D = get_node("Player")
 @onready var level: Node2D = get_node("Level")
@@ -28,16 +33,17 @@ func _create_level() -> void:
 		# 选择一个随机的地图组件
 		var current_component: Node2D = Level_Component[randi() % Level_Component.size()].instantiate()
 		var current_tilemap: TileMap = current_component.get_node("TileMap")
-		if i == 0:
-			player.position = current_component.get_node("PlayerSpawnPos").position
+		if i == int(component_num / 2):
+			player.position = current_component.get_node("PlayerSpawnPos").position + Vector2(position_x_offset, 0) * TILE_SIZE
 		else:
 			current_component.position.x += (current_tilemap.get_used_rect().size.x + position_x_offset) * TILE_SIZE
-			position_x_offset += current_tilemap.get_used_rect().size.x
 
-			if randi() % Level_Component.size() > 1:
+			if randi() % component_num > 2:
 				var chest = Chest_list[0].instantiate()
-				chest.position = current_component.get_node("PlayerSpawnPos").position
+				chest.position = current_component.get_node("PlayerSpawnPos").position + Vector2(position_x_offset, 0) * TILE_SIZE
 				items.add_child(chest)
+			
+			position_x_offset += current_tilemap.get_used_rect().size.x
 
 		level.add_child(current_component)
 
@@ -45,3 +51,9 @@ func _create_level() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	pass
+
+func _spawn_enemy():
+	pass
+
+func _on_enemy_spawn_timer_timeout():
+	_spawn_enemy()

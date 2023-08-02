@@ -5,14 +5,15 @@
 [ext_resource type="Texture2D" uid="uid://c36mbjyv7wwf7" path="res://Item/Relic/CystalHeart.png" id="2_jd5g7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d7bvv"]
-size = Vector2(64, 80)
+size = Vector2(64, 74)
 
 [node name="CystalHeart" instance=ExtResource("1_2fui7")]
 script = ExtResource("2_26owl")
 
 [node name="Sprite2D" parent="." index="0"]
+position = Vector2(0, -2)
+scale = Vector2(1, 0.791667)
 texture = ExtResource("2_jd5g7")
 
 [node name="CollisionShape2D" parent="Area2D" index="0"]
-position = Vector2(0, 4)
 shape = SubResource("RectangleShape2D_d7bvv")

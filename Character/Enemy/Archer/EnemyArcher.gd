@@ -1,11 +1,10 @@
 extends Enemy
 
-const PROJECTILE_ARROW_SCENE: PackedScene = preload("res://Item/Projectile/ArrowSimple.tscn")
+const PROJECTILE_ARROW_SCENE: PackedScene = preload("res://Item/Projectile/ProjectileArrowSimple.tscn")
 
 const MAX_DISTANCE_TO_PLAYER: int = 300
 const MIN_DISTANCE_TO_PLAYER: int = 100
 
-@export var projectile_speed: int = 150
 @onready var attack_timer: Timer = get_node("AttackTimer")
 
 
@@ -18,8 +17,6 @@ func shot() -> void:
 		distance_to_player = (player.position - global_position).length()
 		if distance_to_player > MAX_DISTANCE_TO_PLAYER:
 			_move_to_player()
-		elif distance_to_player < MIN_DISTANCE_TO_PLAYER:
-			_move_away_from_player()
 		else:
 			if is_attackable:
 				is_attackable = false
@@ -33,7 +30,7 @@ func shot() -> void:
 func create_bullet() -> void:
 	var projectile: Area2D = PROJECTILE_ARROW_SCENE.instantiate()
 	projectile.is_enemy_shoot = true
-	projectile.launch(global_position, (player.position-global_position).normalized(), projectile_speed)
+	projectile.launch(global_position, (player.position-global_position).normalized())
 	get_tree().current_scene.add_child(projectile)
 	
 func _on_attack_timer_timeout() -> void:

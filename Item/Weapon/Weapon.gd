@@ -3,8 +3,12 @@ extends Node2D
 class_name Weapon
 
 var is_on_ground: bool = true
-@export var type: int = 0
+var type: int = 0
 @export var rotation_offset: int = 0
+
+var weapon_name: String
+var weapon_description: String
+var weapon_story: String
 
 @export var weapon_damage: int = 10
 @export var weapon_critical_chance: float = 1.1
@@ -23,8 +27,8 @@ func _ready() -> void:
 	
 
 func get_input() -> void:
-	if Input.is_action_just_pressed("ui_attack") and not weapon_anim.is_playing():
-		weapon_anim.play("attack")
+	if Input.is_action_pressed("ui_attack"):
+		weapon_anim.play("attack", -1, 1.0, false)
 		
 
 func move(mouse_direction: Vector2) -> void:
@@ -44,7 +48,7 @@ func _on_player_detector_body_entered(body) -> void:
 		get_node("ItemInfo").show()
 		is_on_ground = false
 		
-		body.is_in_item = true
+		body.is_in_weapon = true
 		body.pick_up_item = self
 	else:
 		if tween:
@@ -53,7 +57,7 @@ func _on_player_detector_body_entered(body) -> void:
 func _on_player_detector_body_exited(body):
 	is_on_ground = true
 	if body.name == "Player":
-		body.is_in_item = false
+		body.is_in_weapon = false
 		body.pick_up_item = null
 	get_node("ItemInfo").hide()
 

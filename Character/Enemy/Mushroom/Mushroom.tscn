@@ -1,9 +1,9 @@
 [gd_scene load_steps=48 format=3 uid="uid://gpgmu4256wq0"]
 
-[ext_resource type="PackedScene" uid="uid://ds4mhlpdeio15" path="res://Character/Emeny/Enemy.tscn" id="1_yppl7"]
+[ext_resource type="PackedScene" uid="uid://ds4mhlpdeio15" path="res://Character/Enemy/Enemy.tscn" id="1_yppl7"]
 [ext_resource type="Texture2D" uid="uid://dw0ja1aftovq6" path="res://Material/Mushroom.png" id="2_23306"]
-[ext_resource type="Script" path="res://Character/Emeny/Mushroom/Mushroom.gd" id="2_bmbgy"]
-[ext_resource type="Script" path="res://Character/Emeny/Mushroom/MushroomFSM.gd" id="3_fveiq"]
+[ext_resource type="Script" path="res://Character/Enemy/Mushroom/Mushroom.gd" id="2_bmbgy"]
+[ext_resource type="Script" path="res://Character/Enemy/Mushroom/MushroomFSM.gd" id="3_fveiq"]
 [ext_resource type="Script" path="res://Hitbox.gd" id="5_enjyq"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ran6k"]

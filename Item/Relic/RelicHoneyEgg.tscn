@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://cds8tiu3ja02m"]
+
+[ext_resource type="PackedScene" uid="uid://c8ecdgjb8vc54" path="res://Item/Relic/Relic.tscn" id="1_bh486"]
+[ext_resource type="Texture2D" uid="uid://b7l5wkg8fibdj" path="res://Item/Relic/HoneyEgg.png" id="2_51858"]
+
+[node name="RelicHoneyEgg" instance=ExtResource("1_bh486")]
+
+[node name="Sprite2D" parent="." index="0"]
+position = Vector2(-2.38419e-07, 4.76837e-07)
+scale = Vector2(0.75, 0.679664)
+texture = ExtResource("2_51858")

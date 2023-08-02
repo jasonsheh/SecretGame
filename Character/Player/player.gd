@@ -3,24 +3,33 @@ extends Character
 enum {UP, DOWN}
 
 var is_on_ladder: bool = false
-var is_in_item: bool = false
+var is_in_weapon: bool = false
+var is_in_chest:  bool = false
+var is_in_relic:   bool = false
+
 var pick_up_item: Node2D = null
+var chest: Node2D = null
 
 signal weapon_switched(type)
 signal weapon_picked_up(type, weapon_texture)
 signal weapon_droped(type)
+signal relic_picked_up(relic_texture)
 
 var current_weapon: Node2D
 const MELEE_TYPE: int = 0
 const RANGE_TYPE: int = 1
 var current_weapon_type: int = 0
 var weapon_count: int = 0
+
+var relic_list: Array = []
+
 @onready var melee_weapon: Node2D = get_node("MeleeWeapon")
 @onready var range_weapon: Node2D = get_node("RangeWeapon")
 
 func _ready() -> void:
 	_restore_previous_state()
-	
+
+
 func _restore_previous_state() -> void:
 	self.hp = SaveData.hp
 	var _weapon: Node2D
@@ -47,6 +56,20 @@ func _restore_previous_state() -> void:
 	if current_weapon:
 		current_weapon.show()
 		current_weapon.get_node("ItemInfo").hide()
+	
+	for _relic in SaveData.relics:
+		relic_list.append(_relic)
+		emit_signal("relic_picked_up", _relic.get_texture())
+
+func _process(_delta) -> void:
+	var mouse_direction = (get_global_mouse_position() - global_position).normalized()
+	if mouse_direction.x > 0 and character_sprite.flip_h:
+		character_sprite.flip_h = false
+	elif mouse_direction.x < 0 and not character_sprite.flip_h:
+		character_sprite.flip_h = true
+	
+	if current_weapon:
+		current_weapon.move(mouse_direction)
 
 
 func get_input() -> void:
@@ -67,45 +90,27 @@ func get_input() -> void:
 			return
 		current_weapon.get_input()
 	
-	# print(is_in_item, Input.is_action_just_released("ui_interact"))
-	if is_in_item and Input.is_action_just_released("ui_interact"):
+	if is_in_weapon and Input.is_action_just_released("ui_interact"):
 		pick_up_item.get_node("PlayerDetector").set_collision_mask_value(1, false)
 		pick_up_item.get_node("PlayerDetector").set_collision_mask_value(2, false)
 		pick_up_weapon(pick_up_item)
 		pick_up_item.position = Vector2.ZERO
 		pick_up_item.get_node("ItemInfo").hide()
-		is_in_item = false
+		is_in_weapon = false
 		pick_up_item = null
-	
+	if is_in_chest and Input.is_action_just_released("ui_interact"):
+		chest.open_chest()
+		is_in_relic = false
+		chest = null
+	if is_in_relic and Input.is_action_just_released("ui_interact"):
+		pick_up_relic(pick_up_item)
 
-
-func _process(_delta) -> void:
-	var mouse_direction = (get_global_mouse_position() - global_position).normalized()
-	if mouse_direction.x > 0 and character_sprite.flip_h:
-		character_sprite.flip_h = false
-	elif mouse_direction.x < 0 and not character_sprite.flip_h:
-		character_sprite.flip_h = true
 	
-	if current_weapon:
-		current_weapon.move(mouse_direction)
-	
-
-func _switch_weapon() -> void:
-	current_weapon.hide()
-	if weapon_count == 0:
-		current_weapon = null
-		return
-	if current_weapon_type == MELEE_TYPE and range_weapon.get_child_count() > 0:
-		current_weapon = range_weapon.get_child(0)
-		current_weapon_type = RANGE_TYPE
-	elif current_weapon_type == RANGE_TYPE and melee_weapon.get_child_count() > 0:
-		current_weapon = melee_weapon.get_child(0)
-		current_weapon_type = MELEE_TYPE
-	current_weapon.show()
-	current_weapon.get_node("ItemInfo").hide()
-		
-	SaveData.equipped_weapon_type = current_weapon_type
-	emit_signal("weapon_switched", current_weapon_type)
+func pick_up_relic(relic: Node2D) -> void:
+	SaveData.relics.append(relic)
+	relic_list.append(relic)
+	emit_signal("relic_picked_up", relic.get_texture())
+	relic.get_parent().call_deferred("remove_child", relic)
 
 
 func pick_up_weapon(weapon: Node2D) -> void:
@@ -146,6 +151,22 @@ func pick_up_weapon(weapon: Node2D) -> void:
 	emit_signal("weapon_picked_up", weapon.type, weapon.get_texture())
 	emit_signal("weapon_switched", weapon.type)
 
+func _switch_weapon() -> void:
+	current_weapon.hide()
+	if weapon_count == 0:
+		current_weapon = null
+		return
+	if current_weapon_type == MELEE_TYPE and range_weapon.get_child_count() > 0:
+		current_weapon = range_weapon.get_child(0)
+		current_weapon_type = RANGE_TYPE
+	elif current_weapon_type == RANGE_TYPE and melee_weapon.get_child_count() > 0:
+		current_weapon = melee_weapon.get_child(0)
+		current_weapon_type = MELEE_TYPE
+	current_weapon.show()
+	current_weapon.get_node("ItemInfo").hide()
+		
+	SaveData.equipped_weapon_type = current_weapon_type
+	emit_signal("weapon_switched", current_weapon_type)
 
 func _drop_weapon() -> void:
 	var weapon_to_drop: Node2D

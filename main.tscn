@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://vgcs0ba5daks"]
+[gd_scene load_steps=6 format=3 uid="uid://vgcs0ba5daks"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_2hw7w"]
 [ext_resource type="PackedScene" uid="uid://ihi4lqxtw1il" path="res://Material/Background/background.tscn" id="2_7edgw"]
 [ext_resource type="PackedScene" uid="uid://cg0t4c3b7afwj" path="res://OptionScene.tscn" id="3_wt8jx"]
 [ext_resource type="PackedScene" uid="uid://wo5h2td3n4g0" path="res://CreditScene.tscn" id="4_5xug2"]
+[ext_resource type="PackedScene" uid="uid://c3jsc3lo27qni" path="res://UI/UIFPS.tscn" id="5_cml0w"]
 
 [node name="Main" type="Node2D"]
 position = Vector2(480, 270)
@@ -52,6 +53,24 @@ position = Vector2(-384, -242)
 [node name="CreditScene" parent="." instance=ExtResource("4_5xug2")]
 visible = false
 position = Vector2(0, -2)
+
+[node name="Label" type="Label" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -480.0
+offset_top = 250.0
+offset_right = -431.0
+offset_bottom = 270.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "V0.0.1"
+
+[node name="FPSLabel" parent="." instance=ExtResource("5_cml0w")]
+offset_left = -480.0
+offset_top = -270.0
+offset_right = -456.0
+offset_bottom = -250.0
 
 [connection signal="pressed" from="CenterContainer/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="CenterContainer/VBoxContainer/OptionButton" to="." method="_on_option_button_pressed"]

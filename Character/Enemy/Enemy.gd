@@ -2,6 +2,8 @@ extends Character
 
 class_name Enemy
 
+var weapon_damage: int = 10
+
 @onready var player: CharacterBody2D = get_node("../Player") # ./Level1/Player
 @onready var is_chased: bool = false
 @onready var last_move_direction: Vector2 = Vector2.ZERO
@@ -16,9 +18,9 @@ func stroll() -> void:
 	pass
 
 func chase() -> void:
+	# 判断是否进入追踪范围
 	if is_chased:
-		_move_to_player()
-		
+		_move_to_player()	
 		if move_direction.x > 0 and character_sprite.flip_h:
 			character_sprite.flip_h = false
 		elif move_direction.x < 0 and not character_sprite.flip_h:
@@ -34,12 +36,6 @@ func face_to_player() -> void:
 
 func _move_to_player() -> void:
 	move_direction = (player.position - self.position).normalized()
-	if last_move_direction == move_direction:
-		jump()
-	last_move_direction = move_direction
-
-func _move_away_from_player() -> void:
-	move_direction = (self.position - player.position).normalized()
 	if last_move_direction == move_direction:
 		jump()
 	last_move_direction = move_direction

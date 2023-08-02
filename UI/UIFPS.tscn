@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://c3jsc3lo27qni"]
+
+[ext_resource type="Script" path="res://UI/UIFPS.gd" id="1_tppdp"]
+
+[node name="FPSLabel" type="Label"]
+offset_right = 48.0
+offset_bottom = 20.0
+text = "60"
+script = ExtResource("1_tppdp")

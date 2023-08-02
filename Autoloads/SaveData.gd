@@ -8,4 +8,4 @@ var weapon: Dictionary = {
 }
 var equipped_weapon_type: int = 0
 
-var items: Array = []
+var relics: Array = []

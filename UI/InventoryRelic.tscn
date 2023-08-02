@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://dqww2uyke6tyo"]
+
+[node name="InventoryRelic" type="TextureRect"]
+custom_minimum_size = Vector2(32, 32)
+anchors_preset = -1
+anchor_right = 0.033
+anchor_bottom = 0.059
+offset_right = -31.68
+offset_bottom = -31.86
+expand_mode = 1

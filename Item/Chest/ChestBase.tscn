@@ -21,6 +21,7 @@ position = Vector2(0, 1.5)
 shape = SubResource("RectangleShape2D_y75r8")
 
 [node name="Interactive" type="Label" parent="."]
+visible = false
 layout_direction = 1
 offset_left = -10.0
 offset_top = 14.0
@@ -31,6 +32,9 @@ text = "[E]"
 horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
+
+[node name="ItemSpawnPos" type="Marker2D" parent="."]
+position = Vector2(0, -32)
 
 [connection signal="body_entered" from="PlayerDetector" to="." method="_on_player_detector_body_entered"]
 [connection signal="body_exited" from="PlayerDetector" to="." method="_on_player_detector_body_exited"]

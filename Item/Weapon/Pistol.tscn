@@ -29,9 +29,9 @@ _data = {
 
 [node name="Pistol" instance=ExtResource("1_8uua3")]
 script = ExtResource("2_4wlgp")
-type = 1
 
 [node name="Sprite2D" parent="Hitbox" index="1"]
+rotation = -1.309
 texture = ExtResource("2_a8dq8")
 
 [node name="AnimationPlayer" parent="." index="1"]

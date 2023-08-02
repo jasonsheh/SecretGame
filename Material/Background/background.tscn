@@ -7,6 +7,6 @@
 [node name="ParallaxLayer" type="ParallaxLayer" parent="."]
 
 [node name="Background" type="Sprite2D" parent="."]
-position = Vector2(480, 160)
-scale = Vector2(1.176, 1)
+position = Vector2(480, 152)
+scale = Vector2(1.147, 1.1)
 texture = ExtResource("1_eg0rf")

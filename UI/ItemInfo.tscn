@@ -1,6 +1,9 @@
-[gd_scene format=3 uid="uid://b1lotxo3wsim7"]
+[gd_scene load_steps=2 format=3 uid="uid://b1lotxo3wsim7"]
+
+[ext_resource type="Script" path="res://UI/ItemInfo.gd" id="1_jsqek"]
 
 [node name="ItemInfo" type="Node2D"]
+script = ExtResource("1_jsqek")
 
 [node name="Panel" type="Panel" parent="."]
 anchors_preset = 7

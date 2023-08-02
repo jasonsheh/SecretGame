@@ -1,42 +1,30 @@
-[gd_scene load_steps=7 format=3 uid="uid://b7yfga4n2d8fv"]
+[gd_scene load_steps=5 format=3 uid="uid://b7yfga4n2d8fv"]
 
 [ext_resource type="PackedScene" uid="uid://rlqh4bgjud0q" path="res://Levels/LevelBase.tscn" id="1_3jckd"]
 [ext_resource type="Texture2D" uid="uid://cd4ggvioipso1" path="res://Material/Background/b3.png" id="2_aoigy"]
 [ext_resource type="Script" path="res://Levels/Level1.gd" id="2_rovfx"]
-[ext_resource type="PackedScene" uid="uid://gpgmu4256wq0" path="res://Character/Emeny/Mushroom/Mushroom.tscn" id="4_x76ix"]
 [ext_resource type="PackedScene" uid="uid://02yqnpl71dd4" path="res://Prop/Portal.tscn" id="5_kypcn"]
-[ext_resource type="PackedScene" uid="uid://dburyq5peht2c" path="res://Character/Emeny/Archer/Archer.tscn" id="5_w584x"]
 
 [node name="Level1" instance=ExtResource("1_3jckd")]
 script = ExtResource("2_rovfx")
-component_num = 5
+component_num = 7
 
 [node name="Portal" parent="." index="2" instance=ExtResource("5_kypcn")]
 position = Vector2(512, -136)
 next_level = "Level2"
 
-[node name="Player" parent="." index="4"]
+[node name="Player" parent="." index="5"]
 z_index = 0
-position = Vector2(0, -40)
+position = Vector2(0, -64)
 
-[node name="Camera2D" parent="Player" index="6"]
+[node name="Camera2D" parent="Player" index="8"]
 offset = Vector2(0, -100)
 
-[node name="ColorRect" type="ColorRect" parent="Player/Camera2D" index="0"]
-visible = false
-z_index = -1
-offset_left = -320.0
-offset_top = -179.0
-offset_right = 320.0
-offset_bottom = 189.0
-color = Color(0.129412, 0.14902, 0.247059, 1)
-
-[node name="GameBG" parent="Player/Camera2D" index="1"]
-position = Vector2(9.53674e-07, -99)
+[node name="GameBG" parent="Player/Camera2D" index="0"]
+position = Vector2(5.68434e-14, -91)
 texture = ExtResource("2_aoigy")
 
-[node name="Archer" parent="." index="5" instance=ExtResource("5_w584x")]
-position = Vector2(256, -48)
+[node name="EnemySpawnTimer" type="Timer" parent="." index="7"]
+wait_time = 5.0
 
-[node name="Mushroom" parent="." index="6" instance=ExtResource("4_x76ix")]
-position = Vector2(-232, -16)
+[connection signal="timeout" from="EnemySpawnTimer" to="." method="_on_enemy_spawn_timer_timeout"]

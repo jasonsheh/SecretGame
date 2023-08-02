@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://damah84yfg1x7"]
 
 [ext_resource type="Script" path="res://Item/Projectile/Projectile.gd" id="1_mxoco"]
-[ext_resource type="Texture2D" uid="uid://dnpyx4urti50o" path="res://Character/Emeny/Archer/arrow.png" id="2_bth2v"]
+[ext_resource type="Texture2D" uid="uid://dnpyx4urti50o" path="res://Character/Enemy/Archer/arrow.png" id="2_bth2v"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_73ikh"]
 radius = 2.0
