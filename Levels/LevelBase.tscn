@@ -113,6 +113,8 @@ game_scene = NodePath("../..")
 
 [node name="Level" type="Node2D" parent="."]
 
+[node name="Enemy" type="Node2D" parent="."]
+
 [node name="Items" type="Node2D" parent="."]
 
 [node name="Player" parent="." instance=ExtResource("7_ddu74")]

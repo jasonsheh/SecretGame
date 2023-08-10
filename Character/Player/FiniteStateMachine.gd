@@ -65,6 +65,8 @@ func _get_transition() -> int:
 		states.death:
 			if not character_anim.is_playing():
 				parent.queue_free()
+				SaveData.player_data.dead = true
+				SaveData.save_data()
 				get_tree().change_scene_to_file("res://main.tscn")
 	return -1
 

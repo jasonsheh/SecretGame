@@ -1,4 +1,11 @@
-extends Node2D
+extends Interactable
+
+const item_name_list: Array = [
+	"CystalHeart",
+	"Cigar",
+	"HoneyEgg",
+	"TreasureMap"
+]
 
 @onready var item_list: Array = [
 	preload("res://Item/Relic/RelicCystalHeart.tscn"),
@@ -8,20 +15,6 @@ extends Node2D
 	
 ]
 @onready var item = item_list[randi() % item_list.size()]
-
-func _on_player_detector_body_entered(_body) -> void:
-	if _body.name == "Player":
-		get_node("Interactive").show()
-		
-		_body.is_in_chest = true
-		_body.chest = self
-
-
-func _on_player_detector_body_exited(_body) -> void:
-	if _body.name == "Player":
-		_body.is_in_chest = false
-		_body.chest = null
-		get_node("Interactive").hide()
 
 func open_chest() -> void:
 	item = item.instantiate()

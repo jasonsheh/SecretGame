@@ -1,8 +1,7 @@
 extends Character
 
-class_name Enemy
+class_name Boss
 
-var weapon_damage: int = 10
 
 @onready var player: CharacterBody2D = get_node("../../Player") # ./Level1/Player
 @onready var is_chased: bool = false
@@ -26,7 +25,7 @@ func chase() -> void:
 		elif move_direction.x < 0 and not character_sprite.flip_h:
 			character_sprite.flip_h = true
 
-func face_to_player() -> void:
+func _face_to_player() -> void:
 	var face_direction = (player.position - self.position).normalized()
 	if face_direction.x > 0 and character_sprite.flip_h:
 		character_sprite.flip_h = false
@@ -40,13 +39,3 @@ func _move_to_player() -> void:
 		jump()
 	last_move_direction = move_direction
 
-
-func _on_player_detection_body_entered(body):
-	if body.name == "Player":
-		is_chased = true
-
-
-func _on_player_detection_body_exited(body):
-	if body.name == "Player":
-		is_chased = false
-		move_direction.x = 0

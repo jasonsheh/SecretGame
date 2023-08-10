@@ -1,0 +1,11 @@
+[gd_scene load_steps=4 format=3 uid="uid://cphi0s2ysn83g"]
+
+[ext_resource type="PackedScene" uid="uid://b6xbyc8gujjhk" path="res://Character/character.tscn" id="1_8v5uc"]
+[ext_resource type="Script" path="res://Character/Boss/Boss.gd" id="2_4qvem"]
+[ext_resource type="Script" path="res://Character/Boss/BossFSM.gd" id="3_40byp"]
+
+[node name="Boss" instance=ExtResource("1_8v5uc")]
+script = ExtResource("2_4qvem")
+
+[node name="FiniteStateMachine" parent="." index="3"]
+script = ExtResource("3_40byp")

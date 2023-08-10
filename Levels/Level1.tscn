@@ -7,13 +7,12 @@
 
 [node name="Level1" instance=ExtResource("1_3jckd")]
 script = ExtResource("2_rovfx")
-component_num = 7
 
 [node name="Portal" parent="." index="2" instance=ExtResource("5_kypcn")]
 position = Vector2(512, -136)
 next_level = "Level2"
 
-[node name="Player" parent="." index="5"]
+[node name="Player" parent="." index="6"]
 z_index = 0
 position = Vector2(0, -64)
 
@@ -26,5 +25,6 @@ texture = ExtResource("2_aoigy")
 
 [node name="EnemySpawnTimer" type="Timer" parent="." index="7"]
 wait_time = 5.0
+autostart = true
 
 [connection signal="timeout" from="EnemySpawnTimer" to="." method="_on_enemy_spawn_timer_timeout"]

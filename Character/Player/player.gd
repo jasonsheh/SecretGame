@@ -15,9 +15,10 @@ signal weapon_picked_up(type, weapon_texture)
 signal weapon_droped(type)
 signal relic_picked_up(relic_texture)
 
-var current_weapon: Node2D
 const MELEE_TYPE: int = 0
 const RANGE_TYPE: int = 1
+
+var current_weapon: Node2D
 var current_weapon_type: int = 0
 var weapon_count: int = 0
 
@@ -31,14 +32,15 @@ func _ready() -> void:
 
 
 func _restore_previous_state() -> void:
-	self.hp = SaveData.hp
+	self.hp = SaveData.player_data.hp
 	var _weapon: Node2D
-	current_weapon_type = SaveData.equipped_weapon_type
+	current_weapon_type = SaveData.player_data.equipped_weapon_type
 	
-	for weapon_type in SaveData.weapon.keys():
-		if SaveData.weapon[weapon_type]:
+	for weapon_type in SaveData.player_data.weapon.keys():
+		if SaveData.player_data.weapon[weapon_type]:
 			weapon_count += 1
-			_weapon = SaveData.weapon[weapon_type].duplicate()
+			_weapon = load("res://Item/Weapon/%s.tscn" % SaveData.player_data.weapon[weapon_type]).instantiate()
+			_weapon.is_on_ground = false
 			_weapon.hide()
 			_weapon.position = Vector2.ZERO
 		
@@ -57,8 +59,9 @@ func _restore_previous_state() -> void:
 		current_weapon.show()
 		current_weapon.get_node("ItemInfo").hide()
 	
-	for _relic in SaveData.relics:
+	for _relic in SaveData.player_data.relics:
 		relic_list.append(_relic)
+		_relic = load("res://Item/Relic/Relic%s.tscn" % _relic).instantiate()
 		emit_signal("relic_picked_up", _relic.get_texture())
 
 func _process(_delta) -> void:
@@ -107,14 +110,14 @@ func get_input() -> void:
 
 	
 func pick_up_relic(relic: Node2D) -> void:
-	SaveData.relics.append(relic)
+	SaveData.player_data.relics.append(relic.relic_name)
 	relic_list.append(relic)
 	emit_signal("relic_picked_up", relic.get_texture())
 	relic.get_parent().call_deferred("remove_child", relic)
 
 
 func pick_up_weapon(weapon: Node2D) -> void:
-	SaveData.equipped_weapon_type = weapon.type
+	SaveData.player_data.equipped_weapon_type = weapon.type
 	if current_weapon:
 		current_weapon.hide()
 	current_weapon = weapon
@@ -145,8 +148,8 @@ func pick_up_weapon(weapon: Node2D) -> void:
 	current_weapon.get_node("ItemInfo").hide()
 	current_weapon_type = weapon.type
 	
-	SaveData.weapon[weapon.type] = weapon.duplicate()
-	SaveData.equipped_weapon_type = current_weapon_type
+	SaveData.player_data.weapon[weapon.type] = weapon.weapon_name
+	SaveData.player_data.equipped_weapon_type = current_weapon_type
 	
 	emit_signal("weapon_picked_up", weapon.type, weapon.get_texture())
 	emit_signal("weapon_switched", weapon.type)
@@ -165,7 +168,7 @@ func _switch_weapon() -> void:
 	current_weapon.show()
 	current_weapon.get_node("ItemInfo").hide()
 		
-	SaveData.equipped_weapon_type = current_weapon_type
+	SaveData.player_data.equipped_weapon_type = current_weapon_type
 	emit_signal("weapon_switched", current_weapon_type)
 
 func _drop_weapon() -> void:
@@ -177,6 +180,8 @@ func _drop_weapon() -> void:
 	if current_weapon_type == RANGE_TYPE:
 		weapon_to_drop = range_weapon.get_child(0)
 		range_weapon.call_deferred("remove_child", weapon_to_drop)
+		
+	SaveData.player_data.weapon[current_weapon_type] = null
 	weapon_count -= 1
 	get_parent().call_deferred("add_child", weapon_to_drop)
 	weapon_to_drop.set_owner(get_parent())
@@ -186,6 +191,7 @@ func _drop_weapon() -> void:
 	await weapon_to_drop.tree_entered
 	weapon_to_drop.show()
 	weapon_to_drop.get_node("ItemInfo").hide()
+	weapon_to_drop.is_on_ground = true
 	
 	var throw_dir: Vector2 = (get_global_mouse_position() - position).normalized()
 	weapon_to_drop.interpolate_pos(position, position + throw_dir * 50)

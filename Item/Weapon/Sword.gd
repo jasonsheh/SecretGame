@@ -5,6 +5,7 @@ extends Weapon
 func _ready():
 	weapon_damage = 15
 	
+	id = 1
 	weapon_name = "Sword"
 	weapon_description = "damge: " + str(weapon_damage)
 	weapon_story = "Sword"

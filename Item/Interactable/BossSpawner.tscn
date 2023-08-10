@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://db5hw1kp7xlrw"]
+
+[ext_resource type="PackedScene" uid="uid://c72pne30u477h" path="res://Item/Interactable/Interactable.tscn" id="1_8dlhi"]
+[ext_resource type="Texture2D" uid="uid://g0ml2unof7ma" path="res://Material/Interactable/BossBeacon.png" id="2_1nm15"]
+[ext_resource type="Script" path="res://Item/Interactable/BossSpawner.gd" id="2_j5b17"]
+
+[node name="BossSpawner" instance=ExtResource("1_8dlhi")]
+script = ExtResource("2_j5b17")
+
+[node name="Sprite2D" parent="." index="0"]
+position = Vector2(-8, -96)
+texture = ExtResource("2_1nm15")
+
+[node name="CollisionShape2D" parent="PlayerDetector" index="0"]
+position = Vector2(0, -8)
+
+[node name="ItemSpawnPos" parent="." index="3"]
+position = Vector2(-64, -64)

@@ -1,8 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://s58fgdwxyvfm"]
+[gd_scene load_steps=3 format=3 uid="uid://s58fgdwxyvfm"]
 
 [ext_resource type="PackedScene" uid="uid://c8ecdgjb8vc54" path="res://Item/Relic/Relic.tscn" id="1_4u5pm"]
+[ext_resource type="Script" path="res://Item/Relic/RelicTreasureMap.gd" id="2_gxmvw"]
 
 [node name="RelicTreasureMap" instance=ExtResource("1_4u5pm")]
+script = ExtResource("2_gxmvw")
 
 [node name="Sprite2D" parent="." index="0"]
 position = Vector2(-2.14577e-06, 1.19209e-07)

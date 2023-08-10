@@ -57,7 +57,7 @@ func take_damage(damage: int, direction: Vector2, force: int) -> void:
 		_damage_indicator.label.text = str(damage)
 		
 		if name == "Player":
-			SaveData.hp = hp
+			SaveData.player_data.hp = hp
 		if hp > 0:
 			state_machine.set_state(state_machine.states.hurt)
 			velocity.x += direction.x * force

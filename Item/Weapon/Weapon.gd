@@ -2,19 +2,20 @@ extends Node2D
 
 class_name Weapon
 
+var id: int
 var is_on_ground: bool = true
 var type: int = 0
-@export var rotation_offset: int = 0
 
 var weapon_name: String
 var weapon_description: String
 var weapon_story: String
 
-@export var weapon_damage: int = 10
-@export var weapon_critical_chance: float = 1.1
-@export var weapon_attack_speed: float = 1.2
+var weapon_damage: int = 10
+var weapon_critical_chance: float = 1.1
+var weapon_attack_speed: float = 1.2
 
-var tween: Tween = null 
+@export var rotation_offset: int = 0
+var tween: Tween = null
 @onready var weapon_anim: AnimationPlayer = get_node("AnimationPlayer")
 @onready var weapon_hitbox: Hitbox = get_node("Hitbox")
 @onready var player_detector: Area2D = get_node("PlayerDetector")
@@ -44,7 +45,7 @@ func move(mouse_direction: Vector2) -> void:
 	
 
 func _on_player_detector_body_entered(body) -> void:
-	if body.name == "Player":
+	if body.name == "Player" and is_on_ground:
 		get_node("ItemInfo").show()
 		is_on_ground = false
 		
