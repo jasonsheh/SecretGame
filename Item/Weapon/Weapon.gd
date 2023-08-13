@@ -2,9 +2,10 @@ extends Node2D
 
 class_name Weapon
 
-var id: int
+var type: int # 0 for melee, 1 for range
+var rarity: int
+
 var is_on_ground: bool = true
-var type: int = 0
 
 var weapon_name: String
 var weapon_description: String
@@ -27,9 +28,8 @@ func _ready() -> void:
 		player_detector.set_collision_mask_value(2, false)
 	
 
-func get_input() -> void:
-	if Input.is_action_pressed("ui_attack"):
-		weapon_anim.play("attack", -1, 1.0, false)
+func attack() -> void:
+	weapon_anim.play("attack", -1, weapon_attack_speed, false)
 		
 
 func move(mouse_direction: Vector2) -> void:

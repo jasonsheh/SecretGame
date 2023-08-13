@@ -83,6 +83,7 @@ func get_input() -> void:
 	
 	if is_on_ladder:
 		move_direction.y = Input.get_axis("ui_up", "ui_down")
+		# move_direction.x = 0
 		climb()
 	
 	if current_weapon and not current_weapon.is_busy():
@@ -91,7 +92,11 @@ func get_input() -> void:
 		elif Input.is_action_just_pressed("ui_drop") and (melee_weapon.get_child_count() + range_weapon.get_child_count()) > 0:
 			_drop_weapon()
 			return
-		current_weapon.get_input()
+		if Input.is_action_pressed("ui_attack"):
+			current_weapon.attack()
+			MAX_SPEED = 100
+		if MAX_SPEED != PLAYER_MAX_SPEED and not current_weapon.is_busy():
+			MAX_SPEED = PLAYER_MAX_SPEED
 	
 	if is_in_weapon and Input.is_action_just_released("ui_interact"):
 		pick_up_item.get_node("PlayerDetector").set_collision_mask_value(1, false)

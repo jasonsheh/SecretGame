@@ -8,11 +8,11 @@
 script = ExtResource("2_j5b17")
 
 [node name="Sprite2D" parent="." index="0"]
-position = Vector2(-8, -96)
+position = Vector2(0, -96)
 texture = ExtResource("2_1nm15")
 
 [node name="CollisionShape2D" parent="PlayerDetector" index="0"]
-position = Vector2(0, -8)
+position = Vector2(0, 0)
 
 [node name="ItemSpawnPos" parent="." index="3"]
 position = Vector2(-64, -64)

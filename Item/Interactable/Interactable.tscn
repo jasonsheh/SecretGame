@@ -15,7 +15,7 @@ collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetector"]
-position = Vector2(0, 1.5)
+position = Vector2(0, -12)
 shape = SubResource("RectangleShape2D_y75r8")
 
 [node name="Interactive" type="Label" parent="."]

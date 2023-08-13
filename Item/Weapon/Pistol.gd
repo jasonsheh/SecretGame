@@ -4,12 +4,16 @@ const BULLET_SIMPLE_SCENE:PackedScene = preload("res://Item/Projectile/Projectil
 
 func _ready():
 	type = 1
+	rarity = 5
 	
 	weapon_damage = 8
-	
 	weapon_name = "Pistol"
-	weapon_description = "damge: " + str(weapon_damage)
-	weapon_story = "Pistol"
+	weapon_description = "damge: {damage}\nattack speed: {speed}\ncritical chance: {chance}".format({
+		"damage": weapon_damage,
+		"speed": weapon_attack_speed,
+		"chance": weapon_critical_chance,
+	})
+	weapon_story = "one normal pistol"
 	
 	get_node("ItemInfo").update_info()
 

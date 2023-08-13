@@ -16,9 +16,9 @@ config/features=PackedStringArray("4.0", "Forward Plus")
 
 [autoload]
 
-Utils="*res://Game/Utils.gd"
 SceneTransistor="*res://Autoloads/SceneTransistor.tscn"
 SaveData="*res://Autoloads/SaveData.gd"
+GlobalData="*res://Autoloads/GlobalData.gd"
 
 [debug]
 
@@ -35,7 +35,10 @@ window/stretch/aspect="ignore"
 
 [gui]
 
-theme/custom_font="res://UI/ark-pixel-10px-monospaced-zh_cn.ttf"
+theme/custom_font="res://UI/Font/ark-pixel-10px-monospaced-zh_cn.ttf"
+theme/default_font_antialiasing=0
+theme/default_font_hinting=0
+theme/default_font_subpixel_positioning=0
 
 [input]
 

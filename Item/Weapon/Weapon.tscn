@@ -78,6 +78,7 @@ shape = SubResource("RectangleShape2D_d5p8e")
 
 [node name="ItemInfo" parent="." instance=ExtResource("3_3yqnn")]
 visible = false
+position = Vector2(0, -12)
 
 [connection signal="body_entered" from="PlayerDetector" to="." method="_on_player_detector_body_entered"]
 [connection signal="body_exited" from="PlayerDetector" to="." method="_on_player_detector_body_exited"]

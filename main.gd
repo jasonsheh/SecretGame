@@ -10,9 +10,9 @@ func _ready():
 	SaveData.load_data()
 	if !SaveData.player_data.dead:
 		# character dead or first time play, need create new game
-		$CenterContainer/VBoxContainer/ContinueButton.show()
+		$Control/VBoxContainer/ContinueButton.show()
 	else:
-		$CenterContainer/VBoxContainer/ContinueButton.hide()
+		$Control/VBoxContainer/ContinueButton.hide()
 	
 
 func set_config():

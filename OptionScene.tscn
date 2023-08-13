@@ -12,7 +12,6 @@ offset_bottom = 448.0
 tab_alignment = 1
 
 [node name="KEY_OPTION_VIDEO" type="Button" parent="TabContainer"]
-visible = false
 layout_mode = 2
 flat = true
 
@@ -90,6 +89,20 @@ text = "KEY_OPTION_VSYNC"
 layout_mode = 2
 size_flags_horizontal = 3
 
+[node name="FPSContainer" type="HBoxContainer" parent="TabContainer/KEY_OPTION_VIDEO"]
+offset_left = 24.0
+offset_top = 97.0
+offset_right = 736.0
+offset_bottom = 122.0
+
+[node name="Label" type="Label" parent="TabContainer/KEY_OPTION_VIDEO/FPSContainer"]
+layout_mode = 2
+text = "KEY_OPTION_FPS"
+
+[node name="FPSButton" type="CheckButton" parent="TabContainer/KEY_OPTION_VIDEO/FPSContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
 [node name="KEY_OPTION_AUDIO" type="Button" parent="TabContainer"]
 visible = false
 layout_mode = 2
@@ -150,6 +163,7 @@ size_flags_vertical = 4
 value = 50.0
 
 [node name="KEY_OPTION_GAMEPLAY" type="Button" parent="TabContainer"]
+visible = false
 layout_mode = 2
 flat = true
 
@@ -193,9 +207,9 @@ offset_bottom = 413.0
 text = "KEY_OPTION_RETURN"
 
 [connection signal="item_selected" from="TabContainer/KEY_OPTION_VIDEO/ResolutionContainer/ResolutionOption" to="." method="_on_resolution_option_item_selected"]
-[connection signal="item_selected" from="TabContainer/KEY_OPTION_VIDEO/ResolutionContainer/ResolutionOption" to="." method="_on_option_button_item_selected"]
 [connection signal="pressed" from="TabContainer/KEY_OPTION_VIDEO/FullScreenContainer/FullScreenButton" to="." method="_on_full_screen_button_pressed"]
 [connection signal="pressed" from="TabContainer/KEY_OPTION_VIDEO/VsyncContainer/VsyncButton" to="." method="_on_vsync_button_pressed"]
+[connection signal="pressed" from="TabContainer/KEY_OPTION_VIDEO/FPSContainer/FPSButton" to="." method="_on_fps_button_pressed"]
 [connection signal="item_selected" from="TabContainer/KEY_OPTION_GAMEPLAY/LanguageContainer/LanguageOption" to="." method="_on_language_option_item_selected"]
 [connection signal="pressed" from="ApplyButton" to="." method="_on_apply_button_pressed"]
 [connection signal="pressed" from="CloseButton" to="." method="_on_close_button_pressed"]

@@ -36,7 +36,8 @@ func set_default_config() -> Dictionary:
 		video = {
 			resolution = Vector2(640, 480),
 			fullscreen = false,
-			vsync = false
+			vsync = false,
+			fps = false,
 		},
 		audio = {},
 		game = {

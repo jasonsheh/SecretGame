@@ -1,0 +1,95 @@
+[gd_scene load_steps=6 format=3 uid="uid://clk0iucxjmg6q"]
+
+[ext_resource type="Script" path="res://UI/UI.gd" id="1_obdpv"]
+[ext_resource type="Texture2D" uid="uid://qb7q1d5bhdbq" path="res://UI/bg.png" id="2_jy430"]
+[ext_resource type="Texture2D" uid="uid://dcqc743qg7jai" path="res://UI/red.png" id="3_7upb2"]
+[ext_resource type="Texture2D" uid="uid://bobmt1a3dcjtu" path="res://UI/green.png" id="4_o372a"]
+[ext_resource type="PackedScene" uid="uid://c3jsc3lo27qni" path="res://UI/UIFPS.tscn" id="5_3qnlo"]
+
+[node name="UI" type="CanvasLayer"]
+script = ExtResource("1_obdpv")
+
+[node name="HealthBar" type="TextureProgressBar" parent="."]
+offset_left = 396.0
+offset_top = 492.0
+offset_right = 564.0
+offset_bottom = 514.0
+nine_patch_stretch = true
+texture_over = ExtResource("2_jy430")
+texture_progress = ExtResource("3_7upb2")
+
+[node name="HealthLabel" type="Label" parent="HealthBar"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -28.0
+offset_right = 28.0
+offset_bottom = 20.0
+grow_horizontal = 2
+text = "100/100"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="EnergyBar" type="TextureProgressBar" parent="."]
+offset_left = 412.0
+offset_top = 512.0
+offset_right = 548.0
+offset_bottom = 532.0
+nine_patch_stretch = true
+texture_over = ExtResource("2_jy430")
+texture_progress = ExtResource("4_o372a")
+
+[node name="EnergyLabel" type="Label" parent="EnergyBar"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -28.0
+offset_right = 28.0
+offset_bottom = 20.0
+grow_horizontal = 2
+text = "50/50"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MeleeInventory" type="PanelContainer" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -88.0
+offset_right = -8.0
+offset_bottom = -56.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="RangeInventory" type="PanelContainer" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = -88.0
+offset_right = 40.0
+offset_bottom = -56.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="RelicInventory" type="GridContainer" parent="."]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -156.0
+offset_right = 384.0
+grow_vertical = 0
+columns = 13
+
+[node name="FPSLabel" parent="." instance=ExtResource("5_3qnlo")]

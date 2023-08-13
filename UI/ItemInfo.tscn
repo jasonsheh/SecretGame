@@ -11,9 +11,9 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -64.0
+offset_left = -80.0
 offset_top = -192.0
-offset_right = 64.0
+offset_right = 80.0
 grow_horizontal = 2
 grow_vertical = 0
 
@@ -25,12 +25,12 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ItemName" type="Label" parent="Panel/VBoxContainer"]
+[node name="ItemName" type="RichTextLabel" parent="Panel/VBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 0
-text = "Weapon Name"
-horizontal_alignment = 1
-autowrap_mode = 1
+theme_override_font_sizes/normal_font_size = 20
+bbcode_enabled = true
+text = "[center][color=crimson]{name}[/color][/center]"
+fit_content = true
 
 [node name="HSeparator" type="HSeparator" parent="Panel/VBoxContainer"]
 layout_mode = 2
@@ -38,9 +38,10 @@ layout_mode = 2
 [node name="ItemDescription" type="Label" parent="Panel/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 0
+theme_override_font_sizes/font_size = 10
 text = "Weapon Description"
 horizontal_alignment = 1
-autowrap_mode = 1
+autowrap_mode = 3
 
 [node name="HSeparator2" type="HSeparator" parent="Panel/VBoxContainer"]
 layout_mode = 2
@@ -48,6 +49,7 @@ layout_mode = 2
 [node name="ItemStory" type="Label" parent="Panel/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 0
+theme_override_font_sizes/font_size = 10
 text = "Weapon story
 "
 horizontal_alignment = 1

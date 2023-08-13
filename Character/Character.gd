@@ -4,10 +4,11 @@ class_name Character
 
 const damage_indicator: PackedScene = preload("res://Item/Weapon/DamageIndicator.tscn")
 
-const FRICTION: float = 0.15
-@export var accerelation: int = 20
-@export var speed: int = 100
-@export var MAX_SPEED: int = 200
+const FRICTION: float = 0.16
+const accerelation: int = 20
+
+var MAX_SPEED: int = 200
+var PLAYER_MAX_SPEED: int = 200
 
 @export var max_hp:int = 100
 @export var hp:int = 100: set = set_hp
@@ -28,8 +29,12 @@ var move_direction: Vector2 = Vector2.ZERO
 func _physics_process(_delta: float) -> void:
 	move_and_slide()
 	velocity.x = lerp(velocity.x, 0.0, FRICTION)
+	
+	velocity.x = clamp(velocity.x, -MAX_SPEED, MAX_SPEED)
+	
 	if abs(velocity.x) < 10:
 		velocity.x = 0
+
 
 
 func move(delta) -> void:

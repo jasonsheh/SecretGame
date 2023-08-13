@@ -572,7 +572,7 @@ script = ExtResource("2_4slo7")
 
 [node name="AnimatedSprite2D" parent="." index="0"]
 sprite_frames = SubResource("SpriteFrames_85b5o")
-animation = &"idle"
+animation = &"climb"
 frame = 1
 
 [node name="CollisionShape2D" parent="." index="1"]
@@ -597,7 +597,6 @@ collision_layer = 0
 collision_mask = 32
 
 [node name="LadderShape2D" type="CollisionShape2D" parent="LadderDetector" index="0"]
-position = Vector2(-0.5, -1)
 shape = SubResource("RectangleShape2D_an6cc")
 
 [connection signal="body_entered" from="LadderDetector" to="." method="_on_ladder_detector_body_entered"]

@@ -1,6 +1,5 @@
 extends Node2D
 
-
 var _settings: Dictionary
 
 const resolution_list: Array = [
@@ -32,10 +31,11 @@ const language_dict: Dictionary = {
 
 func _ready():
 	_settings = Config.new().load_config()
-	get_node("TabContainer/KEY_OPTION_VIDEO/FullScreenContainer/FullScreenButton").button_pressed = _settings.video.fullscreen
-	get_node("TabContainer/KEY_OPTION_VIDEO/VsyncContainer/VsyncButton").button_pressed = _settings.video.vsync
-	get_node("TabContainer/KEY_OPTION_VIDEO/ResolutionContainer/ResolutionOption").selected = resolution_list.find(_settings.video.resolution)
-	get_node("TabContainer/KEY_OPTION_GAMEPLAY/LanguageContainer/LanguageOption").selected = language_dict.values().find(_settings.game.language)
+	$TabContainer/KEY_OPTION_VIDEO/FullScreenContainer/FullScreenButton.button_pressed = _settings.video.fullscreen
+	$TabContainer/KEY_OPTION_VIDEO/VsyncContainer/VsyncButton.button_pressed = _settings.video.vsync
+	$TabContainer/KEY_OPTION_VIDEO/FPSContainer/FPSButton.button_pressed = _settings.video.fps
+	$TabContainer/KEY_OPTION_VIDEO/ResolutionContainer/ResolutionOption.selected = resolution_list.find(_settings.video.resolution)
+	$TabContainer/KEY_OPTION_GAMEPLAY/LanguageContainer/LanguageOption.selected = language_dict.values().find(_settings.game.language)
 
 func _on_resolution_option_item_selected(index):
 	_settings.video.resolution = resolution_list[index]
@@ -52,12 +52,18 @@ func _on_full_screen_button_pressed():
 		_settings.video.fullscreen = false
 
 func _on_vsync_button_pressed():
-	if get_node("TabContainer/KEY_OPTION_VIDEO/FullScreenContainer/FullScreenButton").button_pressed:
+	if $TabContainer/KEY_OPTION_VIDEO/FullScreenContainer/FullScreenButton.button_pressed:
 		DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_ENABLED)
 		_settings.video.vsync = true
 	else:
 		DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
 		_settings.video.vsync = true
+
+func _on_fps_button_pressed():
+	if $TabContainer/KEY_OPTION_VIDEO/FPSContainer/FPSButton.button_pressed:
+		_settings.video.fps = true
+	else:
+		_settings.video.fps = false
 
 func _on_language_option_item_selected(index):
 	_settings.game.language = language_dict[language_list[index]]
@@ -69,6 +75,4 @@ func _on_apply_button_pressed() -> void:
 
 func _on_close_button_pressed():
 	self.hide()
-
-
 
